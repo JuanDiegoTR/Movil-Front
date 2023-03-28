@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, Button, SafeAreaView, TouchableHighlight, TouchableOpacity } from 'react-native'
 import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg'
 
 const width = Dimensions.get("window").width;
@@ -14,7 +14,7 @@ function BackDrop({ scrollX }) {
   return (
     <View style={[{
       height: ALTURA_BACKDROP,
-      width, position: "absolute", top: 0,backgroundColor:'#0CBD9D',borderRadius:30
+      width, position: "absolute", top: 0, backgroundColor: '#0CBD9D', borderRadius: 30
     }]}>
     </View>
   )
@@ -24,10 +24,15 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <BackDrop/>
+      <BackDrop />
       <Image style={styles.imgStyle} source={require('./scr/imgs/LOGO.png')} />
       <Text style={styles.titulo}>¡Le damos la bienvenida a DINNY!</Text>
       <Text style={styles.subtitulo}>DINNY te ayuda a llevar un control y estar informado de como administrar tu dinero</Text>
+      <SafeAreaView>
+        <TouchableOpacity style={{backgroundColor: '#FDE400', borderRadius : 40,padding : 20}}>
+          <Text style = {{fontWeight : 'bold'}}>COMENZAR</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
       <StatusBar style="auto" />
     </View>
   );
@@ -57,4 +62,4 @@ const styles = StyleSheet.create({
     marginTop: 0,
     borderRadius: 150
   }
-});
+}); 
