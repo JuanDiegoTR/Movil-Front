@@ -1,60 +1,19 @@
-import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
-import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg'
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './HomeScreen'; // aquí debes importar la vista inicial
+import DetailsScreen from './DetailsScreen'; // aquí debes importar la vista de detalles
 
-const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
+const Stack = createStackNavigator();
 
-
-const ESPACIO_CONTENEDOR = width * 0.7;
-const ESAPACIO = 10;
-const ALTURA_BACKDROP = height * 0.4;
-
-function BackDrop({ scrollX }) {
+function App() {
   return (
-    <View style={[{
-      height: ALTURA_BACKDROP,
-      width, position: "absolute", top: 0,backgroundColor:'#0CBD9D',borderRadius:30
-    }]}>
-    </View>
-  )
-}
-
-export default function App() {
-
-  return (
-    <View style={styles.container}>
-      <BackDrop/>
-      <Image style={styles.imgStyle} source={require('./scr/imgs/LOGO.png')} />
-      <Text style={styles.titulo}>¡Le damos la bienvenida a DINNY!</Text>
-      <Text style={styles.subtitulo}>DINNY te ayuda a llevar un control y estar informado de como administrar tu dinero</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  titulo: {
-    fontSize: 25,
-    color: '#0BDC84',
-    fontWeight: 'bold'
-  },
-  subtitulo: {
-    fontSize: 15,
-    padding: 30,
-    fontWeight: 'bold'
-
-  },
-  imgStyle: {
-    width: 200,
-    height: 180,
-    marginTop: 0,
-    borderRadius: 150
-  }
-});
+export default App;
