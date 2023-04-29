@@ -57,6 +57,8 @@ const styles = StyleSheet.create({
   textIniciarSesion: {
     color: 'rgb(255, 255, 255)',
     fontSize: 28,
+    top:'15%',
+    fontWeight: 'bold',
   },
   containerForm: {
     marginTop: '40%',
@@ -68,8 +70,9 @@ const styles = StyleSheet.create({
     borderRadius: 40
   },
   textform: {
-    fontSize: 24,
+    fontSize: 27,
     alignSelf: 'center',
+    fontWeight: 'bold',
   },
   input: {
     height: '27%',
@@ -78,7 +81,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    fontSize: 27,
+    fontSize: 22,
     borderColor: 'rgb(226, 223, 223)',
     borderBottomColor: 'rgb(194, 191, 191)',
   },
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: '#FDE400',
     borderRadius: 40,
-    marginTop: 30,
+    marginTop: '2%',
     justifyContent: 'center',
     alignSelf: 'center',
   },
