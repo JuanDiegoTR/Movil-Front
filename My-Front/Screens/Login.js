@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   textIniciarSesion: {
     color: 'rgb(255, 255, 255)',
     fontSize: 28,
-    top:'15%',
+    top: '15%',
     fontWeight: 'bold',
   },
   containerForm: {
