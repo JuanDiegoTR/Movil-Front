@@ -1,12 +1,46 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import axios from "axios";
+
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [usuario, setUsuario] = useState('');
+  const [contrasena, setContrasena] = useState('');
 
   const handleLogin = () => {
     // Add your login logic here
+
+    const login = {
+      usuario,
+      contrasena
+    };
+
+    if (usuario &&
+      contrasena) {
+      // Cambio de IPv4
+      axios
+        .post('http://192.168.0.13:8080/login', login, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(res => {
+          if (res.data === true) {
+            alert("Autentificacion Exitosa");
+            navigation.navigate('Principal');
+          } else if (res.data === false){
+            alert('Usuario o contraseña incorrecta');
+          }
+        })
+        .catch((err) => {
+          console.log(err + ' ' + err.response.data.message);
+          alert("Error " + err.response.data.message);
+        });
+
+    } else {
+      alert("Error, LLene todo el formulario");
+    }
+
   };
 
   return (
@@ -19,20 +53,20 @@ export default function LoginScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Usuario"
-          keyboardType="email-address"
+          keyboardType="default"
           autoCapitalize="none"
-          onChangeText={(text) => setEmail(text)}
-          value={email}
+          onChangeText={(text) => setUsuario(text)}
+          value={usuario}
         />
         <TextInput
           style={styles.input}
           placeholder="Contraseña"
           secureTextEntry={true}
           autoCapitalize="none"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
+          onChangeText={(text) => setContrasena(text)}
+          value={contrasena}
         />
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Principal")}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Iniciar</Text>
         </TouchableOpacity>
       </View>
