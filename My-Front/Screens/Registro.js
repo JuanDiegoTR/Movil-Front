@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView } from 'react-native';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import axios from "axios";
 
 export default function Registro({ navigation }) {
 
@@ -10,9 +10,49 @@ export default function Registro({ navigation }) {
     const [usuario, setUsuario] = useState('');
     const [contrasena, setContrasena] = useState('');
 
+    const handleSubmit = () => {
+        const datap = {
+            contrasena,
+            correo,
+            nombre,
+            telefono,
+            usuario
+        };
 
-    const handleLogin = () => {
-        // Add your login logic here
+        if (nombre &&
+            correo &&
+            telefono &&
+            usuario &&
+            contrasena) {
+            
+            // Cambio de IPv4
+            axios
+                .post('http://192.168.0.13:8080/usuario', datap, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => {
+                    if (response.ok) {
+                        console.log(res.data);
+                        console.log(datap);
+                        alert("Usuario Guardado Exitosamente");
+                        navigation.navigate('Logueo');
+                    } else {
+                        console.log('Hubo un problema con el registro');
+                        alert('Hubo un problema con el registro');
+                    }
+                })
+                .catch((err) => {
+                    console.log(err + ' ' + err.response.data.message);
+                    alert("Error " + err.response.data.message);
+                });
+
+        } else {
+            alert("Error, LLene todo el formulario");
+        }
+
+
     };
 
     return (
@@ -61,7 +101,7 @@ export default function Registro({ navigation }) {
                     onChangeText={(text) => setContrasena(text)}
                     value={contrasena}
                 />
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Logueo")}>
+                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                     <Text style={styles.buttonText}>Registrar</Text>
                 </TouchableOpacity>
             </View>
