@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Image, Text, Button } from 'react-native';
+import { View, StyleSheet, Image, Text, Button, TouchableOpacity } from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 import BackDropDeta from '../Screens/BackDropDeta.js';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -34,8 +34,24 @@ export default function ListaGasto({ navigation }) {
 
     };
 
+    const deleteData = (id) => {
+
+        // Cambio de IPv4
+        axios
+            .delete('http://192.168.0.13:8080/contabilidad/' + id + '')
+            .then(res => {
+                alert("Registro eliminado con exito");
+                fetchData()
+            })
+            .catch((err) => {
+                console.log(err + ' ' + err.response.data.message);
+                alert("Error " + err.response.data.message);
+                throw err;
+            });
+
+    };
+
     const nextPage = () => {
-        console.log(totalPages)
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
         }
@@ -74,7 +90,9 @@ export default function ListaGasto({ navigation }) {
                             <Image style={styles.imgStyle} source={require('../scr/imgs/gasto.png')} />,
                             item.valor,
                             <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />,
-                            <Image style={styles.imgStyle} source={require('../scr/imgs/borrar.png')} />,
+                            <TouchableOpacity onPress={() => deleteData(item.id_contabilidad)}>
+                                <Image style={styles.imgStyle} source={require('../scr/imgs/borrar.png')} />
+                            </TouchableOpacity>,
                         ])}
                         textStyle={styles.rowText}
                     />
