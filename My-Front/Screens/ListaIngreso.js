@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Image, Text, Button, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Image, Text, Button, TouchableOpacity, Modal } from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 import BackDropDeta from '../Screens/BackDropDeta.js';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -12,6 +12,8 @@ export default function ListaIngreso({ navigation }) {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(12);
     const [totalPages, setTotalPages] = useState(0);
+    const [selectedItem, setSelectedItem] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -51,6 +53,22 @@ export default function ListaIngreso({ navigation }) {
 
     };
 
+    const getData = (idContabilidad) => {
+
+        // Cambio de IPv4
+        axios
+            .get('http://192.168.0.13:8080/contabilidad/' + idContabilidad + '')
+            .then(res => {
+                setSelectedItem(res.data);
+            })
+            .catch((err) => {
+                console.log(err + ' ' + err.response.data.message);
+                alert("Error " + err.response.data.message);
+                throw err;
+            });
+
+    };
+
     const nextPage = () => {
         console.log(totalPages)
         if (currentPage < totalPages) {
@@ -63,6 +81,15 @@ export default function ListaIngreso({ navigation }) {
             setCurrentPage(currentPage - 1);
         }
     }
+
+    const handleOpenModal = (item) => {
+        getData(item)
+        setModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+    };
 
     return (
         <View style={styles.container}>
@@ -88,7 +115,9 @@ export default function ListaIngreso({ navigation }) {
                     />
                     <Rows
                         data={data.map((item) => [
-                            <Image style={styles.imgStyle} source={require('../scr/imgs/ingreso.png')} />,
+                            <TouchableOpacity onPress={() => handleOpenModal(item.id_contabilidad)}>
+                                <Image style={styles.imgStyle} source={require('../scr/imgs/ingreso.png')} />
+                            </TouchableOpacity>,
                             item.valor,
                             <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />,
                             <TouchableOpacity onPress={() => deleteData(item.id_contabilidad)}>
@@ -98,6 +127,17 @@ export default function ListaIngreso({ navigation }) {
                         textStyle={styles.rowText}
                     />
                 </Table>
+                <Modal visible={modalVisible} onRequestClose={handleCloseModal}>
+                    <View style={styles.modal}>
+                        <Text style={styles.textModal}>Id: {selectedItem?.idCont} </Text>
+                        <Text style={styles.textModal}>Valor: {selectedItem?.valor} </Text>
+                        <Text style={styles.textModal}>Fecha: {selectedItem?.fecha} </Text>
+                        <Text style={styles.textModal}>Categoria: {selectedItem?.cate} </Text>
+                        <Text style={styles.textModal}>Descripción: {selectedItem?.descrip} </Text>
+                        <Text style={styles.textModal}>usuario: {selectedItem?.usuario} </Text>
+                        <Button style={styles.boton} title="Cerrar" onPress={handleCloseModal} />
+                    </View>
+                </Modal>
                 <View style={styles.pagination}>
                     <Button title="Anterior" onPress={previousPage} disabled={currentPage === 1} />
                     <Button title="Siguiente" onPress={nextPage} disabled={currentPage === totalPages} />
@@ -156,5 +196,16 @@ const styles = StyleSheet.create({
         width: 310,
         fontWeight: 'bold',
         fontSize: 20
+    },
+    modal: {
+        top: '40%',
+        
+    },
+    textModal: {
+        fontWeight: 'bold',
+        left:'5%'
+    },
+    boton:{
+        alignItems:'center'
     }
 });
