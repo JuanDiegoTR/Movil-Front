@@ -8,7 +8,7 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 /**Manejar ingreso y saldo como botton*/
-export default function MainScreen() {
+export default function MainScreen({ navigation }) {
 
   return (
     <View style={style.container}>
@@ -19,10 +19,10 @@ export default function MainScreen() {
           <Text style={style.textDis}>DISPONIBLE</Text>
         </View>
         <View style={style.headerWrapperThow}>
-          <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("#")} />
+          <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto")} />
         </View>
         <View style={style.headerWrapperThree}>
-          <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("#")} />
+          <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso")} />
         </View>
 
       </SafeAreaView>
