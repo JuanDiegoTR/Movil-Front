@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import BackDropDeta from '../Screens/BackDropDeta.js';
@@ -8,7 +8,7 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 /**Manejar ingreso y saldo como botton*/
-export default function MainScreen() {
+export default function MainScreen({ navigation }) {
 
   return (
     <View style={style.container}>
@@ -19,11 +19,12 @@ export default function MainScreen() {
           <Text style={style.textDis}>DISPONIBLE</Text>
         </View>
         <View style={style.headerWrapperThow}>
-          <Text style={style.textSal}>SALDO</Text>
-          </View>
-        <View style={style.headerWrapperThree}>
-        <Text style={style.textIng}>INGRESO</Text>
+          <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto")} />
         </View>
+        <View style={style.headerWrapperThree}>
+          <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso")} />
+        </View>
+
       </SafeAreaView>
     </View>
   );
@@ -38,11 +39,14 @@ const style = StyleSheet.create({
   },
   headerWrapperThow: {
     flexDirection: 'row',
-    paddingLeft: 30,
+    paddingLeft: '10%',
+    top: '2%'
   },
-  headerWrapperThree:{
-    flexDirection: 'row-reverse',
-    paddingLeft: 30,
+  headerWrapperThree: {
+    position: 'fixed', 
+    top: '-20%',
+    right: '-28%'
+    
   },
   menu: {
     color: '#FFFFFF',
@@ -53,19 +57,8 @@ const style = StyleSheet.create({
     textAlign: 'center',
     paddingTop: 1,
     width: 310,
-    fontWeight: 'bold'
-  },
-  textSal: {
-    color: '#FFFFFF',
-    textAlign: 'left',
     fontWeight: 'bold',
-    paddingTop: 25
-  },
-  textIng: {
-    color: '#FFFFFF',
-    textAlign: 'right',
-    fontWeight: 'bold',
-    marginTop:-20
+    fontSize:20
   }
 
 })

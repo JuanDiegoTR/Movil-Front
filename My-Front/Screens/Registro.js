@@ -35,17 +35,16 @@ export default function Registro({ navigation }) {
                 .then(res => {
                     if (response.ok) {
                         console.log(res.data);
-                        console.log(datap);
                         alert("Usuario Guardado Exitosamente");
                         navigation.navigate('Logueo');
                     } else {
-                        console.log('Hubo un problema con el registro');
                         alert('Hubo un problema con el registro');
                     }
                 })
                 .catch((err) => {
                     console.log(err + ' ' + err.response.data.message);
                     alert("Error " + err.response.data.message);
+                    throw err;
                 });
 
         } else {
