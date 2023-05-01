@@ -6,6 +6,8 @@ import DetailsScreen from './Screens/DetailsScreen'; // aquí debes importar la 
 import Login from './Screens/Login';
 import Registro from './Screens/Registro';
 import MainScreen from './Screens/MainScreen';
+import ListaGasto from './Screens/ListaGasto';
+import ListaIngreso from './Screens/ListaIngreso';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +25,8 @@ function App() {
         <Stack.Screen name="Logueo" component={Login} />
         <Stack.Screen name="Registrarse" component={Registro} />
         <Stack.Screen name="Principal" component={MainScreen} />
+        <Stack.Screen name="ListGasto" component={ListaGasto} />
+        <Stack.Screen name="ListIngreso" component={ListaIngreso} />
 
       </Stack.Navigator>
     </NavigationContainer>
