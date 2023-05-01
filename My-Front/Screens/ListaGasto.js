@@ -6,7 +6,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 
-export default function ListaGasto({ navigation }) {
+export default function ListaGasto({ navigation, route }) {
+
+    const { usuario } = route.params;
+
+    //Quitar LOG
+    console.log(usuario)
 
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -24,7 +29,7 @@ export default function ListaGasto({ navigation }) {
 
         // Cambio de IPv4
         axios
-            .get('http://192.168.0.13:8080/operaciones/basicas/gastos/admin/' + currentPage + '/' + pageSize + '')
+            .get('http://192.168.0.13:8080/operaciones/basicas/gastos/' + usuario + '/' + currentPage + '/' + pageSize + '')
             .then(res => {
                 setData(res.data.contaOutList);
                 setTotalPages(res.data.totalPagina);

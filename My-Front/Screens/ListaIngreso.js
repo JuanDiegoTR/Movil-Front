@@ -6,7 +6,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 
-export default function ListaIngreso({ navigation }) {
+export default function ListaIngreso({ navigation, route }) {
+
+    const { usuario } = route.params;
+
+    //Quitar LOG
+    console.log(usuario)
 
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +28,7 @@ export default function ListaIngreso({ navigation }) {
 
         // Cambio de IPv4
         axios
-            .get('http://192.168.0.13:8080/operaciones/basicas/ingresos/admin/' + currentPage + '/' + pageSize + '')
+            .get('http://192.168.0.13:8080/operaciones/basicas/ingresos/'+usuario+'/' + currentPage + '/' + pageSize + '')
             .then(res => {
                 setData(res.data.contaOutList);
                 setTotalPages(res.data.totalPagina);
@@ -119,7 +124,9 @@ export default function ListaIngreso({ navigation }) {
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/ingreso.png')} />
                             </TouchableOpacity>,
                             item.valor,
-                            <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />,
+                            <TouchableOpacity onPress={() => navigation.navigate("ReIngreso", { usuario })}>
+                                <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />
+                            </TouchableOpacity>,
                             <TouchableOpacity onPress={() => deleteData(item.id_contabilidad)}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/borrar.png')} />
                             </TouchableOpacity>,
@@ -199,13 +206,13 @@ const styles = StyleSheet.create({
     },
     modal: {
         top: '40%',
-        
+
     },
     textModal: {
         fontWeight: 'bold',
-        left:'5%'
+        left: '5%'
     },
-    boton:{
-        alignItems:'center'
+    boton: {
+        alignItems: 'center'
     }
 });
