@@ -124,7 +124,7 @@ export default function ListaIngreso({ navigation, route }) {
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/ingreso.png')} />
                             </TouchableOpacity>,
                             item.valor,
-                            <TouchableOpacity onPress={() => navigation.navigate("ReIngreso", { usuario })}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ActIngreso", { usuario, item })}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />
                             </TouchableOpacity>,
                             <TouchableOpacity onPress={() => deleteData(item.id_contabilidad)}>
