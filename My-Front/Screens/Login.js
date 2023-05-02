@@ -27,7 +27,7 @@ export default function LoginScreen({ navigation }) {
         .then(res => {
           if (res.data === true) {
             alert("Autentificacion Exitosa");
-            navigation.navigate('Principal');
+            navigation.navigate('Principal', {usuario});
           } else if (res.data === false){
             alert('Usuario o contraseña incorrecta');
           }
