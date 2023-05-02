@@ -22,12 +22,13 @@ export default function MainScreen({ navigation, route }) {
         <View style={style.headerWrapper}>
           <Feather name="menu" size={30} style={style.menu} />
           <Text style={style.textDis}>DISPONIBLE</Text>
+          <Text style={style.textNum}>$ 123.123</Text>
         </View>
         <View style={style.headerWrapperThow}>
-          <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", {usuario})} />
+          <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
         </View>
         <View style={style.headerWrapperThree}>
-          <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", {usuario})} />
+          <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
         </View>
 
       </SafeAreaView>
@@ -48,10 +49,10 @@ const style = StyleSheet.create({
     top: '2%'
   },
   headerWrapperThree: {
-    position: 'fixed', 
+    position: 'fixed',
     top: '-20%',
     right: '-28%'
-    
+
   },
   menu: {
     color: '#FFFFFF',
@@ -60,10 +61,18 @@ const style = StyleSheet.create({
   textDis: {
     color: '#FFFFFF',
     textAlign: 'center',
-    paddingTop: 1,
+    top: -20,
     width: 310,
     fontWeight: 'bold',
-    fontSize:20
+    fontSize: 18
+  },
+  textNum: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+    right:'600%',
+    top: '4%'
   }
 
 })
