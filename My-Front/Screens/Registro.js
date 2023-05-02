@@ -24,7 +24,7 @@ export default function Registro({ navigation }) {
             telefono &&
             usuario &&
             contrasena) {
-            
+
             // Cambio de IPv4
             axios
                 .post('http://192.168.0.13:8080/usuario', datap, {
@@ -33,13 +33,9 @@ export default function Registro({ navigation }) {
                     }
                 })
                 .then(res => {
-                    if (response.ok) {
-                        console.log(res.data);
-                        alert("Usuario Guardado Exitosamente");
-                        navigation.navigate('Logueo');
-                    } else {
-                        alert('Hubo un problema con el registro');
-                    }
+                    console.log(res.data);
+                    alert("Usuario Guardado Exitosamente");
+                    navigation.navigate('Logueo');
                 })
                 .catch((err) => {
                     console.log(err + ' ' + err.response.data.message);
