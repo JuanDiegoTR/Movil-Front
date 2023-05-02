@@ -8,6 +8,8 @@ import Registro from './Screens/Registro';
 import MainScreen from './Screens/MainScreen';
 import ListaGasto from './Screens/ListaGasto';
 import ListaIngreso from './Screens/ListaIngreso';
+import RegIngreso from './Screens/RegIngreso';
+import ActuaIngreso from './Screens/ActuaIngreso';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +29,8 @@ function App() {
         <Stack.Screen name="Principal" component={MainScreen} />
         <Stack.Screen name="ListGasto" component={ListaGasto} />
         <Stack.Screen name="ListIngreso" component={ListaIngreso} />
+        <Stack.Screen name="ReIngreso" component={RegIngreso} />
+        <Stack.Screen name="ActIngreso" component={ActuaIngreso} />
 
       </Stack.Navigator>
     </NavigationContainer>
