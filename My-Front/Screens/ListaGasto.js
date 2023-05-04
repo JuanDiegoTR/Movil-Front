@@ -29,7 +29,7 @@ export default function ListaGasto({ navigation, route }) {
 
         // Cambio de IPv4
         axios
-            .get('http://192.168.0.13:8080/operaciones/basicas/gastos/' + usuario + '/' + currentPage + '/' + pageSize + '')
+            .get('https://backmovil-production.up.railway.app/operaciones/basicas/gastos/' + usuario + '/' + currentPage + '/' + pageSize + '')
             .then(res => {
                 setData(res.data.contaOutList);
                 setTotalPages(res.data.totalPagina);
@@ -46,7 +46,7 @@ export default function ListaGasto({ navigation, route }) {
 
         // Cambio de IPv4
         axios
-            .delete('http://192.168.0.13:8080/contabilidad/' + id + '')
+            .delete('https://backmovil-production.up.railway.app/contabilidad/' + id + '')
             .then(res => {
                 alert("Registro eliminado con exito");
                 fetchData()
@@ -63,7 +63,7 @@ export default function ListaGasto({ navigation, route }) {
 
         // Cambio de IPv4
         axios
-            .get('http://192.168.0.13:8080/contabilidad/' + idContabilidad + '')
+            .get('https://backmovil-production.up.railway.app/contabilidad/' + idContabilidad + '')
             .then(res => {
                 setSelectedItem(res.data);
             })
@@ -105,10 +105,10 @@ export default function ListaGasto({ navigation, route }) {
                     <Text style={styles.textDis}>INFORMACIÓN</Text>
                 </View>
                 <View style={styles.headerWrapperThow}>
-                    <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto")} />
+                    <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", {usuario})} />
                 </View>
                 <View style={styles.headerWrapperThree}>
-                    <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso")} />
+                    <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", {usuario})} />
                 </View>
             </SafeAreaView>
             <View style={styles.containerTabla}>

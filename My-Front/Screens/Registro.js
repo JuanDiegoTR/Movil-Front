@@ -27,7 +27,7 @@ export default function Registro({ navigation }) {
 
             // Cambio de IPv4
             axios
-                .post('http://192.168.0.13:8080/usuario', datap, {
+                .post('https://backmovil-production.up.railway.app/usuario', datap, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -44,7 +44,7 @@ export default function Registro({ navigation }) {
                 });
 
         } else {
-            alert("Error, LLene todo el formulario");
+            alert("Error, llene todo el formulario");
         }
 
 

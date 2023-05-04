@@ -19,7 +19,7 @@ export default function LoginScreen({ navigation }) {
       contrasena) {
       // Cambio de IPv4
       axios
-        .post('http://192.168.0.13:8080/login', login, {
+        .post('https://backmovil-production.up.railway.app/login', login, {
           headers: {
             'Content-Type': 'application/json'
           }

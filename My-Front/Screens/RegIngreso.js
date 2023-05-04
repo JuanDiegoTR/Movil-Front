@@ -32,7 +32,7 @@ export default function RegIngreso({ navigation, route }) {
         const handleSubmit = () => {
             // Cambio de IPv4
             axios
-                .get('http://192.168.0.13:8080/descripcion/lista/ingreso')
+                .get('https://backmovil-production.up.railway.app/descripcion/lista/ingreso')
                 .then(res => {
                     setListIngre(res.data)
                 })
@@ -47,7 +47,7 @@ export default function RegIngreso({ navigation, route }) {
         const userId = () => {
             // Cambio de IPv4
             axios
-                .get('http://192.168.0.13:8080/usuario/' + usuario + '')
+                .get('https://backmovil-production.up.railway.app/usuario/' + usuario + '')
                 .then(res => {
                     setIdUsuario(res.data.id_usuario)
                 })
@@ -80,7 +80,7 @@ export default function RegIngreso({ navigation, route }) {
 
             // Cambio de IPv4
             axios
-                .post('http://192.168.0.13:8080/contabilidad', datap, {
+                .post('https://backmovil-production.up.railway.app/contabilidad', datap, {
                     headers: {
                         'Content-Type': 'application/json'
                     }

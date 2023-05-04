@@ -33,7 +33,7 @@ export default function ActuaIngreso({ navigation, route }) {
         const handleSubmit = () => {
             // Cambio de IPv4
             axios
-                .get('http://192.168.0.13:8080/descripcion/lista/ingreso')
+                .get('https://backmovil-production.up.railway.app/descripcion/lista/ingreso')
                 .then(res => {
                     setListIngre(res.data)
                 })
@@ -65,7 +65,7 @@ export default function ActuaIngreso({ navigation, route }) {
 
             // Cambio de IPv4
             axios
-                .put('http://192.168.0.13:8080/contabilidad/'+data.id_contabilidad+'', datap, {
+                .put('https://backmovil-production.up.railway.app/contabilidad/'+data.id_contabilidad+'', datap, {
                     headers: {
                         'Content-Type': 'application/json'
                     }

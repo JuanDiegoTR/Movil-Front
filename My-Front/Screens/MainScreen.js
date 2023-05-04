@@ -30,6 +30,9 @@ export default function MainScreen({ navigation, route }) {
         <View style={style.headerWrapperThree}>
           <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
         </View>
+        <View>
+          <Button title='Direccion' onPress ={()=> navigation.navigate("RegGasto", {usuario})}/>
+        </View>
 
       </SafeAreaView>
     </View>
