@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Dimensions, StyleSheet, Button } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import BackDropDeta from '../Screens/BackDropDeta.js';
+import axios from "axios";
+import { useIsFocused } from '@react-navigation/core';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -11,9 +13,30 @@ const height = Dimensions.get("window").height;
 export default function MainScreen({ navigation, route }) {
 
   const { usuario } = route.params;
+  const [disponible, setDisponible] = useState('');
 
   //Quitar LOG
   console.log(usuario)
+
+  useEffect(() => {
+
+    const dispo = () => {
+      // Cambio de IPv4
+      axios
+        .get('https://backmovil-production.up.railway.app/operaciones/basicas/disponible/' + usuario + '')
+        .then(res => {
+          setDisponible(res.data);
+        })
+        .catch((err) => {
+          console.log(err + ' ' + err.response.data.message);
+          alert("Error " + err.response.data.message);
+          throw err;
+        });
+
+    };
+
+    dispo();
+  }, []);
 
   return (
     <View style={style.container}>
@@ -22,7 +45,7 @@ export default function MainScreen({ navigation, route }) {
         <View style={style.headerWrapper}>
           <Feather name="menu" size={30} style={style.menu} />
           <Text style={style.textDis}>DISPONIBLE</Text>
-          <Text style={style.textNum}>$ 123.123</Text>
+          <Text style={style.textNum}>$ {disponible}</Text>
         </View>
         <View style={style.headerWrapperThow}>
           <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
@@ -31,7 +54,7 @@ export default function MainScreen({ navigation, route }) {
           <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
         </View>
         <View>
-          <Button title='Direccion' onPress ={()=> navigation.navigate("RegGasto", {usuario})}/>
+          <Button title='Direccion' onPress={() => navigation.navigate("RegGasto", { usuario })} />
         </View>
 
       </SafeAreaView>
@@ -74,7 +97,7 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     textAlign: 'center',
-    right:'600%',
+    right: '600%',
     top: '4%'
   }
 
