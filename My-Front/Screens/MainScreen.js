@@ -26,8 +26,8 @@ export default function MainScreen({ navigation, route }) {
   console.log(usuario)
 
 
-  const tableDataButonUno = [
-    [<TouchableOpacity onPress={() => navigation.navigate("NewGasto", { usuario })}>
+  const tableDataButonUno = [//Consejos NewGasto
+    [<TouchableOpacity onPress={() => navigation.navigate("Consejos", { usuario })}>
       <Image style={style.imgStyle} source={require('../scr/imgs/menos.png')} resizeMethod="contain" />
     </TouchableOpacity>,
     <TouchableOpacity onPress={() => navigation.navigate("ReIngreso", { usuario })}>
