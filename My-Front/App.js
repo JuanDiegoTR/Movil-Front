@@ -11,6 +11,8 @@ import ListaIngreso from './Screens/ListaIngreso';
 import RegIngreso from './Screens/RegIngreso';
 import ActuaIngreso from './Screens/ActuaIngreso';
 import RegGasto from './Screens/RegGasto';
+import NewGasto from './Screens/NewGasto';
+import ActuaGasto from './Screens/ActuaGasto';
 
 const Stack = createStackNavigator();
 
@@ -32,7 +34,8 @@ function App() {
         <Stack.Screen name="ListIngreso" component={ListaIngreso} />
         <Stack.Screen name="ReIngreso" component={RegIngreso} />
         <Stack.Screen name="ActIngreso" component={ActuaIngreso}/>
-        <Stack.Screen name="RegGasto" component={RegGasto}/>
+        <Stack.Screen name="NewGasto" component={NewGasto}/>
+        <Stack.Screen name="ActuaGasto" component={ActuaGasto}/>
         
 
       </Stack.Navigator>

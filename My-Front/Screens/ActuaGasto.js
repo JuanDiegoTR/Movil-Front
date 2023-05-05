@@ -4,7 +4,7 @@ import { Table, Row, Rows } from 'react-native-table-component';
 import axios from "axios";
 import RNPickerSelect from 'react-native-picker-select';
 
-export default function NewGasto({ navigation, route }) {
+export default function ActuaGasto({ navigation, route }) {
 
     const { usuario } = route.params;
     //Quitar LOG
@@ -124,7 +124,7 @@ export default function NewGasto({ navigation, route }) {
     return (
         <View style={styles.containerView} >
             <View style={styles.containerTopBar} >
-                <Text style={styles.textIniciarSesion} >Nuevo Gasto</Text>
+                <Text style={styles.textIniciarSesion} >Editar Gasto</Text>
             </View>
             <View style={styles.containerForm}>
                 <TextInput

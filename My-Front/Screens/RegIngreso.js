@@ -111,7 +111,7 @@ export default function RegIngreso({ navigation, route }) {
     return (
         <View style={styles.containerView} >
             <View style={styles.containerTopBar} >
-                <Text style={styles.textIniciarSesion} >Ingreso</Text>
+                <Text style={styles.textIniciarSesion} >Nuevo Ingreso</Text>
             </View>
             <View style={styles.containerForm}>
                 <TextInput
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(226, 223, 223)'
     },
     button1: {
-        width: '40%',
+        width: '45%',
         height: '10%',
         marginTop: '25%',
         justifyContent: 'center',
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
     },
     button2: {
-        width: '40%',
+        width: '45%',
         height: '10%',
         marginTop: '25%',
         justifyContent: 'center',
