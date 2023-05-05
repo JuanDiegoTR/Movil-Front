@@ -32,7 +32,7 @@ export default function RegIngreso({ navigation, route }) {
         const handleSubmit = () => {
             // Cambio de IPv4
             axios
-                .get('http://192.168.0.13:8080/descripcion/lista/ingreso')
+                .get('https://backmovil-production.up.railway.app/descripcion/lista/ingreso')
                 .then(res => {
                     setListIngre(res.data)
                 })
