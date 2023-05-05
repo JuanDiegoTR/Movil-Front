@@ -10,7 +10,6 @@ import ListaGasto from './Screens/ListaGasto';
 import ListaIngreso from './Screens/ListaIngreso';
 import RegIngreso from './Screens/RegIngreso';
 import ActuaIngreso from './Screens/ActuaIngreso';
-import RegGasto from './Screens/RegGasto';
 import NewGasto from './Screens/NewGasto';
 import ActuaGasto from './Screens/ActuaGasto';
 
