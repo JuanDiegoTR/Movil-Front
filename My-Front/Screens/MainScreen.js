@@ -23,7 +23,7 @@ export default function MainScreen({ navigation, route }) {
     [<TouchableOpacity>
       <Image style={style.imgStyle} source={require('../scr/imgs/menos.png')} resizeMethod="contain" />
     </TouchableOpacity>,
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("ReIngreso", { usuario })}>
       <Image style={style.imgStyle} source={require('../scr/imgs/mas.png')} resizeMethod="contain" />
     </TouchableOpacity>]
   ];
@@ -86,7 +86,6 @@ export default function MainScreen({ navigation, route }) {
           <Table>
             <Rows data={tableData} />
           </Table>
-
         </SafeAreaView>
       </View>
       <SafeAreaView style={style.area2}>
