@@ -16,16 +16,40 @@ export default function MainScreen({ navigation, route }) {
   const [disponible, setDisponible] = useState('');
   const [gasto, setGasto] = useState('');
 
+  const [transporte, setTransporte] = useState('123.123');
+  const [comida, setComida] = useState('500.000');
+  const [gym, setGym] = useState('160.000');
+  const [salud, setSalud] = useState('890.000');
+  const [compras, setCompras] = useState('75.000');
+
   //Quitar LOG
   console.log(usuario)
 
-  const tableData = [
+  const tableDataButonUno = [
     [<TouchableOpacity>
       <Image style={style.imgStyle} source={require('../scr/imgs/menos.png')} resizeMethod="contain" />
     </TouchableOpacity>,
     <TouchableOpacity onPress={() => navigation.navigate("ReIngreso", { usuario })}>
       <Image style={style.imgStyle} source={require('../scr/imgs/mas.png')} resizeMethod="contain" />
     </TouchableOpacity>]
+  ];
+
+  const tableDataCateGasto = [
+    [<Image style={style.imgStyle} source={require('../scr/imgs/transporte.png')} resizeMethod="contain" />,
+    <Text style={style.rowText}>Transporte</Text>,
+    <Text style={style.rowText}>{transporte}</Text>],
+    [<Image style={style.imgStyle} source={require('../scr/imgs/comida.png')} resizeMethod="contain" />,
+    <Text style={style.rowText}>Comida</Text>,
+    <Text style={style.rowText}>{comida}</Text>],
+    [<Image style={style.imgStyle} source={require('../scr/imgs/gym.png')} resizeMethod="contain" />,
+    <Text style={style.rowText}>GYM</Text>,
+    <Text style={style.rowText}>{gym}</Text>],
+    [<Image style={style.imgStyle} source={require('../scr/imgs/salud.png')} resizeMethod="contain" />,
+    <Text style={style.rowText}>Salud</Text>,
+    <Text style={style.rowText}>{salud}</Text>],
+    [<Image style={style.imgStyle} source={require('../scr/imgs/compras.png')} resizeMethod="contain" />,
+    <Text style={style.rowText}>Compras</Text>,
+    <Text style={style.rowText}>{compras}</Text>],
   ];
 
   useEffect(() => {
@@ -84,12 +108,16 @@ export default function MainScreen({ navigation, route }) {
         <SafeAreaView>
           <Text style={style.textGasto}>$ {gasto}</Text>
           <Table>
-            <Rows data={tableData} />
+            <Rows data={tableDataButonUno} />
           </Table>
         </SafeAreaView>
       </View>
       <SafeAreaView style={style.area2}>
-        <Text>Hola</Text>
+        <View>
+          <Table style={style.tabla}>
+            <Rows data={tableDataCateGasto} />
+          </Table>
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -111,7 +139,6 @@ const style = StyleSheet.create({
     position: 'fixed',
     top: '-20%',
     right: '-28%'
-
   },
   menu: {
     color: '#FFFFFF',
@@ -136,17 +163,23 @@ const style = StyleSheet.create({
     backgroundColor: 'red'
   },
   area2: {
-    backgroundColor: 'blue'
+    maxHeight: '45%',
+    flex: 1,
+    backgroundColor: '#E2EEE8',
+    margin: 20,
+    padding: -20,
+    borderRadius: 40
   },
   imgStyle: {
-    left: '30%',
-    marginTop: '15%'
+    margin: 20,
+    left: '18%',
+    marginTop: '12%'
   },
   containerForm: {
     marginTop: '-5%',
     maxHeight: '22%',
     flex: 1,
-    backgroundColor: 'rgb(226, 223, 223)',
+    backgroundColor: '#E2EEE8',
     margin: 20,
     padding: 20,
     borderRadius: 40
@@ -157,6 +190,13 @@ const style = StyleSheet.create({
     top: -14,
     fontWeight: 'bold',
     fontSize: 25
+  },
+  rowText: {
+    textAlign:'center',
+    fontWeight:'bold',
+  },
+  tabla:{
+    right:'4%'
   }
 
 })
