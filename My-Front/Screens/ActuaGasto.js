@@ -4,7 +4,7 @@ import { Table, Row, Rows } from 'react-native-table-component';
 import axios from "axios";
 import RNPickerSelect from 'react-native-picker-select';
 
-export default function RegIngreso({ navigation, route }) {
+export default function ActuaGasto({ navigation, route }) {
 
     const { usuario } = route.params;
     //Quitar LOG
@@ -19,12 +19,25 @@ export default function RegIngreso({ navigation, route }) {
     const [valor, setValor] = useState('');//YA
 
     const tableData = [
-        [<TouchableOpacity onPress={() => setIdCategoria(1)}>
-            <Image style={styles.imgStyle} source={require('../scr/imgs/trabajo.png')} resizeMethod="contain" />
+        
+        [<TouchableOpacity>
+            <Image style={styles.imgStyle} source={require('../scr/imgs/transporte.png')} resizeMethod="contain" />
         </TouchableOpacity>,
-        <TouchableOpacity onPress={() => setIdCategoria(3)}>
-            <Image style={styles.imgStyle} source={require('../scr/imgs/pago.png')} resizeMethod="contain" />
-        </TouchableOpacity>]
+        <TouchableOpacity>
+            <Image style={styles.imgStyle} source={require('../scr/imgs/comida.png')} resizeMethod="contain" />
+        </TouchableOpacity>,
+        <TouchableOpacity>
+            <Image style={styles.imgStyle} source={require('../scr/imgs/salud.png')} resizeMethod="contain" />
+        </TouchableOpacity>],
+        [<TouchableOpacity>
+            <Image style={styles.imgStyle} source={require('../scr/imgs/gym.png')} resizeMethod="contain" />
+        </TouchableOpacity>,
+        <TouchableOpacity>
+            <Image style={styles.imgStyle} source={require('../scr/imgs/servicios.png')} resizeMethod="contain" />
+        </TouchableOpacity>,
+        <TouchableOpacity>
+            <Image style={styles.imgStyle} source={require('../scr/imgs/compras.png')} resizeMethod="contain" />
+    </TouchableOpacity>]
     ];
 
     useEffect(() => {
@@ -32,7 +45,7 @@ export default function RegIngreso({ navigation, route }) {
         const handleSubmit = () => {
             // Cambio de IPv4
             axios
-                .get('https://backmovil-production.up.railway.app/descripcion/lista/ingreso')
+                .get('http://192.168.0.13:8080/descripcion/lista/ingreso')
                 .then(res => {
                     setListIngre(res.data)
                 })
@@ -111,7 +124,7 @@ export default function RegIngreso({ navigation, route }) {
     return (
         <View style={styles.containerView} >
             <View style={styles.containerTopBar} >
-                <Text style={styles.textIniciarSesion} >Nuevo Ingreso</Text>
+                <Text style={styles.textIniciarSesion} >Editar Gasto</Text>
             </View>
             <View style={styles.containerForm}>
                 <TextInput

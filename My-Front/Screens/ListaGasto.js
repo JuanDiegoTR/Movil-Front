@@ -105,10 +105,10 @@ export default function ListaGasto({ navigation, route }) {
                     <Text style={styles.textDis}>INFORMACIÓN</Text>
                 </View>
                 <View style={styles.headerWrapperThow}>
-                    <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", {usuario})} />
+                    <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
                 </View>
                 <View style={styles.headerWrapperThree}>
-                    <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", {usuario})} />
+                    <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
                 </View>
             </SafeAreaView>
             <View style={styles.containerTabla}>
@@ -124,7 +124,9 @@ export default function ListaGasto({ navigation, route }) {
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/gasto.png')} />
                             </TouchableOpacity>,
                             item.valor,
-                            <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />,
+                            <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", {usuario})}>
+                                <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />
+                            </TouchableOpacity>,
                             <TouchableOpacity onPress={() => deleteData(item.id_contabilidad)}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/borrar.png')} />
                             </TouchableOpacity>,
