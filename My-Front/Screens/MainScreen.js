@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Dimensions, StyleSheet, Button } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Button, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import BackDropDeta from '../Screens/BackDropDeta.js';
@@ -53,10 +53,12 @@ export default function MainScreen({ navigation, route }) {
         <View style={style.headerWrapperThree}>
           <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
         </View>
-        <View>
-          <Button title='Direccion' onPress={() => navigation.navigate("RegGasto", { usuario })} />
-        </View>
-
+      </SafeAreaView>
+      <SafeAreaView style={style.area1}>
+        <Text>Hola</Text>
+      </SafeAreaView>
+      <SafeAreaView style={style.area2}>
+        <Text>Hola</Text>
       </SafeAreaView>
     </View>
   );
@@ -99,6 +101,11 @@ const style = StyleSheet.create({
     textAlign: 'center',
     right: '600%',
     top: '4%'
+  }, area1: {
+    backgroundColor: 'red'
+  },
+  area2: {
+    backgroundColor: 'blue'
   }
 
 })
