@@ -32,9 +32,15 @@ export default function MainScreen({ navigation, route }) {
       <TouchableOpacity onPress={() => setModalVisible(false)}>
         <Text style={style.closeButton}>Cerrar submenú</Text>
       </TouchableOpacity>
-      <Text>Principal</Text>
-      <Text>Exporta Excel</Text>
-      <Text>Consejos</Text>
+      <TouchableOpacity onPress={() => setModalVisible(false)}>
+        <Text>Principal</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => setModalVisible(false)}>
+        <Text>Exporta Excel</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => setModalVisible(false)}>
+        <Text>Consejos</Text>
+      </TouchableOpacity>
       <TouchableOpacity onPress={() => setModalVisible(false)}>
         <Text style={style.closeButton}>Principal</Text>
       </TouchableOpacity>
