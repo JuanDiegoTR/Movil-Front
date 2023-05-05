@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Dimensions, StyleSheet, Button, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, Button, TouchableOpacity, Image, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import BackDropDeta from '../Screens/BackDropDeta.js';
@@ -11,6 +11,8 @@ const height = Dimensions.get("window").height;
 
 /**Manejar ingreso y saldo como botton*/
 export default function MainScreen({ navigation, route }) {
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const { usuario } = route.params;
   const [disponible, setDisponible] = useState('');
@@ -24,6 +26,20 @@ export default function MainScreen({ navigation, route }) {
 
   //Quitar LOG
   console.log(usuario)
+
+  const subMenu = (
+    <View style={style.subMenuContainer}>
+      <TouchableOpacity onPress={() => setModalVisible(false)}>
+        <Text style={style.closeButton}>Cerrar submenú</Text>
+      </TouchableOpacity>
+      <Text>Principal</Text>
+      <Text>Exporta Excel</Text>
+      <Text>Consejos</Text>
+      <TouchableOpacity onPress={() => setModalVisible(false)}>
+        <Text style={style.closeButton}>Principal</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
 
   const tableDataButonUno = [
@@ -94,7 +110,24 @@ export default function MainScreen({ navigation, route }) {
       <BackDropDeta />
       <SafeAreaView>
         <View style={style.headerWrapper}>
-          <Feather name="menu" size={30} style={style.menu} />
+          <Feather name="menu" size={30} style={style.menu} onPress={() => setModalVisible(true)} />
+
+          <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View style={style.modalBackground}>
+              <View style={style.modalContainer}>
+                {subMenu}
+              </View>
+              <TouchableOpacity style={{ flex: 1 }} onPress={() => setModalVisible(false)} />
+            </View>
+          </Modal>
+
+
+
           <Text style={style.textDis}>DISPONIBLE</Text>
           <Text style={style.textNum}>$ {disponible}</Text>
         </View>
@@ -193,13 +226,51 @@ const style = StyleSheet.create({
     fontSize: 25
   },
   rowText: {
-    textAlign:'center',
-    fontWeight:'bold',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
-  tabla:{
-    right:'4%'
-  }
+  tabla: {
+    right: '4%'
+  },
+
+
+
+
+
+
+  openButton: {
+    backgroundColor: '#f194ff',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  subMenuContainer: {
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 20,
+    backgroundColor: '#E2EEE8',
+  },
+  closeButton: {
+    color: 'red',
+  },
+  modalBackground: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginLeft: 0,
+  },
+  modalContainer: {
+    backgroundColor: '#FFFFFF',
+    width: '50%',
+    height: '50%',
+    padding: 20,
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    marginTop: '20%',
+
+    backgroundColor: '#E2EEE8',
+  },
+
 
 })
-
-
