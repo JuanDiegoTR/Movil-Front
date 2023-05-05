@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import BackDropDeta from '../Screens/BackDropDeta.js';
 import axios from "axios";
-import { useIsFocused } from '@react-navigation/core';
+import { Table, Row, Rows } from 'react-native-table-component';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -14,9 +14,19 @@ export default function MainScreen({ navigation, route }) {
 
   const { usuario } = route.params;
   const [disponible, setDisponible] = useState('');
+  const [gasto, setGasto] = useState('');
 
   //Quitar LOG
   console.log(usuario)
+
+  const tableData = [
+    [<TouchableOpacity>
+      <Image style={style.imgStyle} source={require('../scr/imgs/menos.png')} resizeMethod="contain" />
+    </TouchableOpacity>,
+    <TouchableOpacity>
+      <Image style={style.imgStyle} source={require('../scr/imgs/mas.png')} resizeMethod="contain" />
+    </TouchableOpacity>]
+  ];
 
   useEffect(() => {
 
@@ -35,6 +45,22 @@ export default function MainScreen({ navigation, route }) {
 
     };
 
+    const gasto = () => {
+      // Cambio de IPv4
+      axios
+        .get('https://backmovil-production.up.railway.app/operaciones/basicas/gasto/total/' + usuario + '')
+        .then(res => {
+          setGasto(res.data);
+        })
+        .catch((err) => {
+          console.log(err + ' ' + err.response.data.message);
+          alert("Error " + err.response.data.message);
+          throw err;
+        });
+
+    };
+
+    gasto();
     dispo();
   }, []);
 
@@ -54,9 +80,15 @@ export default function MainScreen({ navigation, route }) {
           <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
         </View>
       </SafeAreaView>
-      <SafeAreaView style={style.area1}>
-        <Text>Hola</Text>
-      </SafeAreaView>
+      <View style={style.containerForm}>
+        <SafeAreaView>
+          <Text style={style.textGasto}>$ {gasto}</Text>
+          <Table>
+            <Rows data={tableData} />
+          </Table>
+
+        </SafeAreaView>
+      </View>
       <SafeAreaView style={style.area2}>
         <Text>Hola</Text>
       </SafeAreaView>
@@ -106,6 +138,26 @@ const style = StyleSheet.create({
   },
   area2: {
     backgroundColor: 'blue'
+  },
+  imgStyle: {
+    left: '30%',
+    marginTop: '15%'
+  },
+  containerForm: {
+    marginTop: '-5%',
+    maxHeight: '22%',
+    flex: 1,
+    backgroundColor: 'rgb(226, 223, 223)',
+    margin: 20,
+    padding: 20,
+    borderRadius: 40
+  },
+  textGasto: {
+    color: '#DF0ED3',
+    textAlign: 'center',
+    top: -14,
+    fontWeight: 'bold',
+    fontSize: 25
   }
 
 })
