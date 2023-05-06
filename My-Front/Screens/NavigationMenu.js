@@ -16,3 +16,4 @@ function NavigationMenu(){
         </NavigationContainer>
     )
 }
+export default NavigationMenu;
