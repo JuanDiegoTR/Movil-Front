@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import axios from "axios";
 
-
 export default function LoginScreen({ navigation }) {
+
   const [usuario, setUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
 
   const handleLogin = () => {
-    // Add your login logic here
 
     const login = {
       usuario,
@@ -17,7 +16,7 @@ export default function LoginScreen({ navigation }) {
 
     if (usuario &&
       contrasena) {
-      // Cambio de IPv4
+       
       axios
         .post('https://backmovil-production.up.railway.app/login', login, {
           headers: {
@@ -27,8 +26,8 @@ export default function LoginScreen({ navigation }) {
         .then(res => {
           if (res.data === true) {
             alert("Autentificacion Exitosa");
-            navigation.navigate('Principal', {usuario});
-          } else if (res.data === false){
+            navigation.navigate('Principal', { usuario });
+          } else if (res.data === false) {
             alert('Usuario o contraseña incorrecta');
           }
         })

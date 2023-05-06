@@ -25,7 +25,6 @@ export default function Registro({ navigation }) {
             usuario &&
             contrasena) {
 
-            // Cambio de IPv4
             axios
                 .post('https://backmovil-production.up.railway.app/usuario', datap, {
                     headers: {
@@ -165,4 +164,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'black',
     },
+
+
 });

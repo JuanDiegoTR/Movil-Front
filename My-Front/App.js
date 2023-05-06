@@ -1,8 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import HomeScreen from './HomeScreen'; // aquí debes importar la vista inicial
-import DetailsScreen from './Screens/DetailsScreen'; // aquí debes importar la vista de detalles
+import HomeScreen from './HomeScreen';
+import DetailsScreen from './Screens/DetailsScreen';
 import Login from './Screens/Login';
 import Registro from './Screens/Registro';
 import MainScreen from './Screens/MainScreen';

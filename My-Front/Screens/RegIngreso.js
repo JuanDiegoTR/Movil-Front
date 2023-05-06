@@ -30,7 +30,7 @@ export default function RegIngreso({ navigation, route }) {
     useEffect(() => {
 
         const handleSubmit = () => {
-            // Cambio de IPv4
+             
             axios
                 .get('https://backmovil-production.up.railway.app/descripcion/lista/ingreso')
                 .then(res => {
@@ -45,7 +45,7 @@ export default function RegIngreso({ navigation, route }) {
         };
 
         const userId = () => {
-            // Cambio de IPv4
+             
             axios
                 .get('http://192.168.0.13:8080/usuario/' + usuario + '')
                 .then(res => {
@@ -78,7 +78,7 @@ export default function RegIngreso({ navigation, route }) {
             idUsuario &&
             valor) {
 
-            // Cambio de IPv4
+             
             axios
                 .post('http://192.168.0.13:8080/contabilidad', datap, {
                     headers: {
@@ -99,10 +99,7 @@ export default function RegIngreso({ navigation, route }) {
             alert("Error, LLene todo el formulario");
         }
 
-
     };
-
-
 
     const handleValueChange = (value) => {
         setIdDescripcion(value);
@@ -247,4 +244,7 @@ const styles = StyleSheet.create({
     selecText: {
         color: 'black',
     }
+
+
+    
 });

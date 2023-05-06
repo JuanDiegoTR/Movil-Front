@@ -19,7 +19,7 @@ export default function ActuaGasto({ navigation, route }) {
     const [valor, setValor] = useState('');//YA
 
     const tableData = [
-        
+
         [<TouchableOpacity>
             <Image style={styles.imgStyle} source={require('../scr/imgs/transporte.png')} resizeMethod="contain" />
         </TouchableOpacity>,
@@ -37,13 +37,14 @@ export default function ActuaGasto({ navigation, route }) {
         </TouchableOpacity>,
         <TouchableOpacity>
             <Image style={styles.imgStyle} source={require('../scr/imgs/compras.png')} resizeMethod="contain" />
-    </TouchableOpacity>]
+        </TouchableOpacity>]
+
     ];
 
     useEffect(() => {
 
         const handleSubmit = () => {
-            // Cambio de IPv4
+             
             axios
                 .get('http://192.168.0.13:8080/descripcion/lista/ingreso')
                 .then(res => {
@@ -58,7 +59,7 @@ export default function ActuaGasto({ navigation, route }) {
         };
 
         const userId = () => {
-            // Cambio de IPv4
+             
             axios
                 .get('http://192.168.0.13:8080/usuario/' + usuario + '')
                 .then(res => {
@@ -91,7 +92,6 @@ export default function ActuaGasto({ navigation, route }) {
             idUsuario &&
             valor) {
 
-            // Cambio de IPv4
             axios
                 .post('http://192.168.0.13:8080/contabilidad', datap, {
                     headers: {
@@ -112,10 +112,7 @@ export default function ActuaGasto({ navigation, route }) {
             alert("Error, LLene todo el formulario");
         }
 
-
     };
-
-
 
     const handleValueChange = (value) => {
         setIdDescripcion(value);

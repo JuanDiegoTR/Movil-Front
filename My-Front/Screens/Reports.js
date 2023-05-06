@@ -12,16 +12,21 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 export default function Reports({ navigation, route }) {
+
+    //const {usuario} = route.param;
+
     const [listIngre, setListIngre] = useState(["INGRESO", "GASTO", "AMBOS"]);
     const [idDescripcion, setIdDescripcion] = useState('');//YA
-    //const {usuario} = route.param;
+
     const handleValueChange = (value) => {
         setIdDescripcion(value);
     };
+
     const tableData = [
         [<TextInput style={style.input} value='01/05/23' />,
         <TextInput style={style.input} value='05/05/23' />]
     ];
+
     return (
         <View style={style.container}>
             <BackDropFinal />
@@ -40,13 +45,13 @@ export default function Reports({ navigation, route }) {
                 <View>
                     <Text style={style.select}>Seleccione el tipo</Text>
                     <View style={style.selec}>
-                    <RNPickerSelect
-                        placeholder={{ label: 'SELECCIONE', value: null }}
-                        onValueChange={handleValueChange}
-                        items={listIngre.map((list) => ({ label: list }))}
-                        value={idDescripcion}
-                        textStyle={style.selecText}
-                    />
+                        <RNPickerSelect
+                            placeholder={{ label: 'SELECCIONE', value: null }}
+                            onValueChange={handleValueChange}
+                            items={listIngre.map((list) => ({ label: list }))}
+                            value={idDescripcion}
+                            textStyle={style.selecText}
+                        />
                     </View>
                 </View>
             </SafeAreaView>
@@ -146,4 +151,6 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
     },
+
+    
 });

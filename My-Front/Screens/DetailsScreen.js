@@ -19,7 +19,6 @@ function BackDrop({ scrollX }) {
   )
 }
 
-
 function DetailsScreen({ navigation }) {
   return (
     <View style={styles.container}>

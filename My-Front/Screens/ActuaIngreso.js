@@ -9,8 +9,6 @@ export default function ActuaIngreso({ navigation, route }) {
     const { usuario } = route.params;
     const [data, setData] = useState(route.params.item);
 
-    //Quitar LOG
-
     const [listIngre, setListIngre] = useState([]);
 
     const [idCategoria, setIdCategoria] = useState(data.idCategoria);//YA
@@ -18,7 +16,7 @@ export default function ActuaIngreso({ navigation, route }) {
     const [idTipo, setIdTipo] = useState(data.idTipo);//YA
     const [idUsuario, setIdUsuario] = useState(data.idUsuario);//YA
     const [valor, setValor] = useState(data.valor);//YA
-    
+
     const tableData = [
         [<TouchableOpacity onPress={() => setIdCategoria(1)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/trabajo.png')} resizeMethod="contain" />
@@ -31,7 +29,7 @@ export default function ActuaIngreso({ navigation, route }) {
     useEffect(() => {
 
         const handleSubmit = () => {
-            // Cambio de IPv4
+             
             axios
                 .get('https://backmovil-production.up.railway.app/descripcion/lista/ingreso')
                 .then(res => {
@@ -63,9 +61,8 @@ export default function ActuaIngreso({ navigation, route }) {
             idUsuario &&
             valor) {
 
-            // Cambio de IPv4
             axios
-                .put('https://backmovil-production.up.railway.app/contabilidad/'+data.id_contabilidad+'', datap, {
+                .put('https://backmovil-production.up.railway.app/contabilidad/' + data.id_contabilidad + '', datap, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -84,10 +81,7 @@ export default function ActuaIngreso({ navigation, route }) {
             alert("Error, LLene todo el formulario");
         }
 
-
     };
-
-
 
     const handleValueChange = (value) => {
         setIdDescripcion(value);

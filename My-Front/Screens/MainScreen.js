@@ -9,7 +9,6 @@ import { Table, Row, Rows } from 'react-native-table-component';
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-/**Manejar ingreso y saldo como botton*/
 export default function MainScreen({ navigation, route }) {
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -47,7 +46,6 @@ export default function MainScreen({ navigation, route }) {
     </View>
   );
 
-
   const tableDataButonUno = [
     [<TouchableOpacity onPress={() => navigation.navigate("NewGasto", { usuario })}>
       <Image style={style.imgStyle} source={require('../scr/imgs/menos.png')} resizeMethod="contain" />
@@ -78,7 +76,7 @@ export default function MainScreen({ navigation, route }) {
   useEffect(() => {
 
     const dispo = () => {
-      // Cambio de IPv4
+       
       axios
         .get('https://backmovil-production.up.railway.app/operaciones/basicas/disponible/' + usuario + '')
         .then(res => {
@@ -93,7 +91,7 @@ export default function MainScreen({ navigation, route }) {
     };
 
     const gasto = () => {
-      // Cambio de IPv4
+       
       axios
         .get('https://backmovil-production.up.railway.app/operaciones/basicas/gasto/total/' + usuario + '')
         .then(res => {
@@ -160,6 +158,7 @@ export default function MainScreen({ navigation, route }) {
     </View>
   );
 };
+
 const style = StyleSheet.create({
   container: {
     flex: 1

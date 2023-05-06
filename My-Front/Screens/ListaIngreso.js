@@ -48,7 +48,6 @@ export default function ListaIngreso({ navigation, route }) {
 
     const fetchData = async () => {
 
-        // Cambio de IPv4
         axios
             .get('https://backmovil-production.up.railway.app/operaciones/basicas/ingresos/' + usuario + '/' + currentPage + '/' + pageSize + '')
             .then(res => {
@@ -65,7 +64,6 @@ export default function ListaIngreso({ navigation, route }) {
 
     const deleteData = (id) => {
 
-        // Cambio de IPv4
         axios
             .delete('https://backmovil-production.up.railway.app/contabilidad/' + id + '')
             .then(res => {
@@ -81,8 +79,7 @@ export default function ListaIngreso({ navigation, route }) {
     };
 
     const getData = (idContabilidad) => {
-
-        // Cambio de IPv4
+         
         axios
             .get('https://backmovil-production.up.railway.app/contabilidad/' + idContabilidad + '')
             .then(res => {
