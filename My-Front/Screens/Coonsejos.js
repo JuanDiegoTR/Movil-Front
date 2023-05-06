@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, Button, SafeAreaView, TouchableHighlight, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, Button, SafeAreaView, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native'
 import { Table, Row, Rows } from 'react-native-table-component';
-import BackDropDeta from '../Screens/BackDropDeta.js';
+import BackDropFinal from '../Screens/BackDropFinal.js';
 import Feather from 'react-native-vector-icons/Feather';
-import axios from 'axios'; 3
+import axios from 'axios'; 
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-const ESPACIO_CONTENEDOR = width * 0.7;
-const ESAPACIO = 10;
-const ALTURA_BACKDROP = height * 0.4;
 
 export default function Coonsejos({ navigation, route }) {
 
@@ -24,16 +21,6 @@ export default function Coonsejos({ navigation, route }) {
     const [expanded3, setExpanded3] = useState(false);
     const [expanded4, setExpanded4] = useState(false);
     const [expanded5, setExpanded5] = useState(false);
-
-    function BackDrop({ scrollX }) {
-        return (
-            <View style={[{
-                height: ALTURA_BACKDROP,
-                width, position: "absolute", top: 0, backgroundColor: '#0CBD9D', borderRadius: 30
-            }]}>
-            </View>
-        )
-    }
 
     const toggleAccordion = () => {
         setExpanded(!expanded);
@@ -57,10 +44,10 @@ export default function Coonsejos({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <BackDrop />
-            <Text style={styles.subtitulo}>Registrate para guardar tu información</Text>
+            <BackDropFinal />
+            <Text style={styles.titlePrimary}>Consejos para mejorar tus finanzas</Text>
             <Image style={styles.imgStyle} source={require('../scr/imgs/LOGO.png')} />
-            <SafeAreaView>
+            <ScrollView style = {styles.scroll}>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={toggleAccordion} style={styles.header}>
                         <Text style={styles.title}>HOLA BIENVENISDOA</Text>
@@ -102,24 +89,26 @@ export default function Coonsejos({ navigation, route }) {
                             <Text>Lorem ipsum dolor sit amet consectetur adipiscing elit donec nibh, arcu nec hendrerit phasellus enim quis commodo eget, himenaeos turpis neque in urna dui mauris risus.</Text>
                         </View>
                     )}
-
                 </View>
-            </SafeAreaView>
+                </ScrollView>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        top: 50,
+        top: 40,
         borderWidth: 1,
         borderColor: '#ccc',
-        marginBottom: 10,
+        marginBottom: 10
     },
     header: {
-        top: 20,
-        padding: 10,
+        top: 10,
+        padding: 12,
+        height:50,
         backgroundColor: '#f2f2f2',
+        borderRadius: 30,
+        marginBottom:10,
     },
     title: {
         fontWeight: 'bold',
@@ -139,10 +128,20 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     imgStyle: {
-        width: 200,
-        height: 180,
-        marginTop: 0,
-        borderRadius: 150
+        width: "70%",
+        height: "30%",
+        marginTop: 30,
+        borderRadius: 100,
+        margin: "12%"
     },
+    titlePrimary : {
+        fontWeight: 'bold',
+        color : '#FFFFFF',
+        fontSize: 15,
+        padding: 30,
+    },
+    scroll : {
+        top:-10
+    }
 
 });

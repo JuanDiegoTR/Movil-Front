@@ -35,7 +35,7 @@ export default function MainScreen({ navigation, route }) {
       <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisible(false))}>
         <Text>Principal</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("ListGasto", { usuario }, setModalVisible(false))}>
+      <TouchableOpacity onPress={() => navigation.navigate("Reportes", { usuario }, setModalVisible(false))}>
         <Text>Exporta Excel</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Consejos", { usuario }, setModalVisible(false))}>

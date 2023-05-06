@@ -13,6 +13,7 @@ import ActuaIngreso from './Screens/ActuaIngreso';
 import NewGasto from './Screens/NewGasto';
 import ActuaGasto from './Screens/ActuaGasto';
 import Coonsejos from './Screens/Coonsejos';
+import Reports from './Screens/Reports';
 
 const Stack = createStackNavigator();
 
@@ -37,8 +38,7 @@ function App() {
         <Stack.Screen name="NewGasto" component={NewGasto}/>
         <Stack.Screen name="ActuaGasto" component={ActuaGasto}/>
         <Stack.Screen name="Consejos" component={Coonsejos}/>
-        
-
+        <Stack.Screen name="Reportes" component={Reports}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
