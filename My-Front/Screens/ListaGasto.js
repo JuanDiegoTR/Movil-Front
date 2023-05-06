@@ -157,7 +157,7 @@ export default function ListaGasto({ navigation, route }) {
                             <TouchableOpacity onPress={() => handleOpenModal(item.id_contabilidad)}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/gasto.png')} />
                             </TouchableOpacity>,
-                            item.valor,
+                            item.valor.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."),
                             <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", { usuario })}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />
                             </TouchableOpacity>,

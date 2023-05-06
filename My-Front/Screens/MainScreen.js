@@ -17,11 +17,11 @@ export default function MainScreen({ navigation, route }) {
   const [disponible, setDisponible] = useState('');
   const [gasto, setGasto] = useState('');
 
-  const [transporte, setTransporte] = useState('123.123');
-  const [comida, setComida] = useState('500.000');
-  const [gym, setGym] = useState('160.000');
-  const [salud, setSalud] = useState('890.000');
-  const [compras, setCompras] = useState('75.000');
+  const [transporte, setTransporte] = useState(123123);
+  const [comida, setComida] = useState(500000);
+  const [gym, setGym] = useState(160000);
+  const [salud, setSalud] = useState(890000);
+  const [compras, setCompras] = useState(75000);
 
   //Quitar LOG
   console.log(usuario)
@@ -58,19 +58,19 @@ export default function MainScreen({ navigation, route }) {
   const tableDataCateGasto = [
     [<Image style={style.imgStyle} source={require('../scr/imgs/transporte.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Transporte</Text>,
-    <Text style={style.rowText}>{transporte}</Text>],
+    <Text style={style.rowText}>{transporte.toLocaleString()}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/comida.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Comida</Text>,
-    <Text style={style.rowText}>{comida}</Text>],
+    <Text style={style.rowText}>{comida.toLocaleString()}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/gym.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>GYM</Text>,
-    <Text style={style.rowText}>{gym}</Text>],
+    <Text style={style.rowText}>{gym.toLocaleString()}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/salud.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Salud</Text>,
-    <Text style={style.rowText}>{salud}</Text>],
+    <Text style={style.rowText}>{salud.toLocaleString()}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/compras.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Compras</Text>,
-    <Text style={style.rowText}>{compras}</Text>],
+    <Text style={style.rowText}>{compras.toLocaleString()}</Text>],
   ];
 
   useEffect(() => {
@@ -131,7 +131,7 @@ export default function MainScreen({ navigation, route }) {
           </Modal>
 
           <Text style={style.textDis}>DISPONIBLE</Text>
-          <Text style={style.textNum}>$ {disponible}</Text>
+          <Text style={style.textNum}>$ {disponible.toLocaleString()}</Text>
         </View>
         <View style={style.headerWrapperThow}>
           <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
@@ -142,7 +142,7 @@ export default function MainScreen({ navigation, route }) {
       </SafeAreaView>
       <View style={style.containerForm}>
         <SafeAreaView>
-          <Text style={style.textGasto}>$ {gasto}</Text>
+          <Text style={style.textGasto}>$ {gasto.toLocaleString()}</Text>
           <Table>
             <Rows data={tableDataButonUno} />
           </Table>

@@ -159,7 +159,7 @@ export default function ListaIngreso({ navigation, route }) {
                             <TouchableOpacity onPress={() => handleOpenModal(item.id_contabilidad)}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/ingreso.png')} />
                             </TouchableOpacity>,
-                            item.valor,
+                            item.valor.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."),
                             <TouchableOpacity onPress={() => navigation.navigate("ActIngreso", { usuario, item })}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />
                             </TouchableOpacity>,

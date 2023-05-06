@@ -69,6 +69,7 @@ const style = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 15,
         padding: 30,
+        textAlign:'center',
     },
     imgStyle: {
         width: "70%",
