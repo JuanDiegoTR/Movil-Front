@@ -132,8 +132,6 @@ export default function MainScreen({ navigation, route }) {
             </View>
           </Modal>
 
-
-
           <Text style={style.textDis}>DISPONIBLE</Text>
           <Text style={style.textNum}>$ {disponible}</Text>
         </View>
@@ -245,7 +243,6 @@ const style = StyleSheet.create({
     elevation: 2,
   },
   subMenuContainer: {
-    backgroundColor: 'white',
     borderRadius: 20,
     padding: 20,
     backgroundColor: '#E2EEE8',
@@ -261,14 +258,12 @@ const style = StyleSheet.create({
     marginLeft: 0,
   },
   modalContainer: {
-    backgroundColor: '#FFFFFF',
     width: '50%',
     height: '50%',
     padding: 20,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
     marginTop: '20%',
-
     backgroundColor: '#E2EEE8',
   },
 
