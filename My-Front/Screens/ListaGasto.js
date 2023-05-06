@@ -20,6 +20,27 @@ export default function ListaGasto({ navigation, route }) {
     const [selectedItem, setSelectedItem] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
 
+    const [modalVisibleMenu, setModalVisibleMenu] = useState(false);
+
+    const subMenu = (
+        <View style={styles.subMenuContainer}>
+            <TouchableOpacity onPress={() => setModalVisibleMenu(false)}>
+                <Text style={styles.closeButton}>Cerrar submenú</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisibleMenu(false))}>
+                <Text>Principal</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("ListGasto", { usuario }, setModalVisibleMenu(false))}>
+                <Text>Exporta Excel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Consejos", { usuario }, setModalVisibleMenu(false))}>
+                <Text>Consejos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisibleMenu(false))}>
+                <Text style={styles.closeButton}>Principal</Text>
+            </TouchableOpacity>
+        </View>
+    );
 
     useEffect(() => {
         fetchData();
@@ -101,7 +122,23 @@ export default function ListaGasto({ navigation, route }) {
             <BackDropDeta />
             <SafeAreaView>
                 <View style={styles.headerWrapper}>
-                    <Feather name="menu" size={30} style={styles.menu} />
+                    <Feather name="menu" size={30} style={styles.menu} onPress={() => setModalVisibleMenu(true)} />
+
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={modalVisibleMenu}
+                        onRequestClose={() => setModalVisibleMenu(false)}
+                    >
+                        <View style={styles.modalBackground}>
+                            <View style={styles.modalContainer}>
+                                {subMenu}
+                            </View>
+                            <TouchableOpacity style={{ flex: 1 }} onPress={() => setModalVisibleMenu(false)} />
+                        </View>
+                    </Modal>
+
+
                     <Text style={styles.textDis}>INFORMACIÓN</Text>
                 </View>
                 <View style={styles.headerWrapperThow}>
@@ -124,7 +161,7 @@ export default function ListaGasto({ navigation, route }) {
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/gasto.png')} />
                             </TouchableOpacity>,
                             item.valor,
-                            <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", {usuario})}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", { usuario })}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />
                             </TouchableOpacity>,
                             <TouchableOpacity onPress={() => deleteData(item.id_contabilidad)}>
@@ -214,5 +251,33 @@ const styles = StyleSheet.create({
     },
     boton: {
         alignItems: 'center'
-    }
+    },
+    subMenuContainer: {
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 20,
+        backgroundColor: '#E2EEE8',
+    },
+    closeButton: {
+        color: 'red',
+    },
+    modalBackground: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        marginLeft: 0,
+    },
+    modalContainer: {
+        backgroundColor: '#FFFFFF',
+        width: '50%',
+        height: '50%',
+        padding: 20,
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20,
+        marginTop: '20%',
+        backgroundColor: '#E2EEE8',
+    },
+
+
 });

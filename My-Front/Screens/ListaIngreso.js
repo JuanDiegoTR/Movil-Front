@@ -20,6 +20,28 @@ export default function ListaIngreso({ navigation, route }) {
     const [selectedItem, setSelectedItem] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
 
+    const [modalVisibleMenu, setModalVisibleMenu] = useState(false);
+
+    const subMenu = (
+        <View style={styles.subMenuContainer}>
+            <TouchableOpacity onPress={() => setModalVisibleMenu(false)}>
+                <Text style={styles.closeButton}>Cerrar submenú</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisibleMenu(false))}>
+                <Text>Principal</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("ListGasto", { usuario }, setModalVisibleMenu(false))}>
+                <Text>Exporta Excel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Consejos", { usuario }, setModalVisibleMenu(false))}>
+                <Text>Consejos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisibleMenu(false))}>
+                <Text style={styles.closeButton}>Principal</Text>
+            </TouchableOpacity>
+        </View>
+    );
+
     useEffect(() => {
         fetchData();
     }, [currentPage]);
@@ -28,7 +50,7 @@ export default function ListaIngreso({ navigation, route }) {
 
         // Cambio de IPv4
         axios
-            .get('https://backmovil-production.up.railway.app/operaciones/basicas/ingresos/'+usuario+'/' + currentPage + '/' + pageSize + '')
+            .get('https://backmovil-production.up.railway.app/operaciones/basicas/ingresos/' + usuario + '/' + currentPage + '/' + pageSize + '')
             .then(res => {
                 setData(res.data.contaOutList);
                 setTotalPages(res.data.totalPagina);
@@ -101,14 +123,31 @@ export default function ListaIngreso({ navigation, route }) {
             <BackDropDeta />
             <SafeAreaView>
                 <View style={styles.headerWrapper}>
-                    <Feather name="menu" size={30} style={styles.menu} />
+                    <Feather name="menu" size={30} style={styles.menu} onPress={() => setModalVisibleMenu(true)} />
+
+                    <Modal
+                        animationType="fade"
+                        transparent={true}
+                        visible={modalVisibleMenu}
+                        onRequestClose={() => setModalVisibleMenu(false)}
+                    >
+                        <View style={styles.modalBackground}>
+                            <View style={styles.modalContainer}>
+                                {subMenu}
+                            </View>
+                            <TouchableOpacity style={{ flex: 1 }} onPress={() => setModalVisibleMenu(false)} />
+                        </View>
+                    </Modal>
+
+
+
                     <Text style={styles.textDis}>INFORMACIÓN</Text>
                 </View>
                 <View style={styles.headerWrapperThow}>
-                    <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", {usuario})} />
+                    <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
                 </View>
                 <View style={styles.headerWrapperThree}>
-                    <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", {usuario})} />
+                    <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
                 </View>
             </SafeAreaView>
             <View style={styles.containerTabla}>
@@ -214,5 +253,33 @@ const styles = StyleSheet.create({
     },
     boton: {
         alignItems: 'center'
-    }
+    },
+    subMenuContainer: {
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 20,
+        backgroundColor: '#E2EEE8',
+    },
+    closeButton: {
+        color: 'red',
+    },
+    modalBackground: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        marginLeft: 0,
+    },
+    modalContainer: {
+        backgroundColor: '#FFFFFF',
+        width: '50%',
+        height: '50%',
+        padding: 20,
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20,
+        marginTop: '20%',
+        backgroundColor: '#E2EEE8',
+    },
+
+
 });

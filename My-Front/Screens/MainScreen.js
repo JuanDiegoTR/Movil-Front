@@ -32,13 +32,13 @@ export default function MainScreen({ navigation, route }) {
       <TouchableOpacity onPress={() => setModalVisible(false)}>
         <Text style={style.closeButton}>Cerrar submenú</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => setModalVisible(false)}>
+      <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisible(false))}>
         <Text>Principal</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => setModalVisible(false)}>
+      <TouchableOpacity onPress={() => navigation.navigate("ListGasto", { usuario }, setModalVisible(false))}>
         <Text>Exporta Excel</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => setModalVisible(false)}>
+      <TouchableOpacity onPress={() => navigation.navigate("Consejos", { usuario }, setModalVisible(false))}>
         <Text>Consejos</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => setModalVisible(false)}>
@@ -48,8 +48,8 @@ export default function MainScreen({ navigation, route }) {
   );
 
 
-  const tableDataButonUno = [//Consejos NewGasto
-    [<TouchableOpacity onPress={() => navigation.navigate("Consejos", { usuario })}>
+  const tableDataButonUno = [
+    [<TouchableOpacity onPress={() => navigation.navigate("NewGasto", { usuario })}>
       <Image style={style.imgStyle} source={require('../scr/imgs/menos.png')} resizeMethod="contain" />
     </TouchableOpacity>,
     <TouchableOpacity onPress={() => navigation.navigate("ReIngreso", { usuario })}>
@@ -238,12 +238,6 @@ const style = StyleSheet.create({
   tabla: {
     right: '4%'
   },
-
-
-
-
-
-
   openButton: {
     backgroundColor: '#f194ff',
     borderRadius: 20,
