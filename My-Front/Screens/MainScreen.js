@@ -5,6 +5,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import BackDropDeta from '../Screens/BackDropDeta.js';
 import axios from "axios";
 import { Table, Row, Rows } from 'react-native-table-component';
+import SubMenu from './SubMenu.js';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -26,21 +27,6 @@ export default function MainScreen({ navigation, route }) {
 
   //Quitar LOG
   console.log(usuario)
-
-  const subMenu = (
-    <View style={style.subMenuContainer}>
-      <TouchableOpacity onPress={() => setModalVisible(false)}>
-        <Text style={style.closeButton}>Cerrar submenú</Text>
-      </TouchableOpacity>
-      <Text>Principal</Text>
-      <Text>Exporta Excel</Text>
-      <Text>Consejos</Text>
-      <TouchableOpacity onPress={() => setModalVisible(false)}>
-        <Text style={style.closeButton}>Principal</Text>
-      </TouchableOpacity>
-    </View>
-  );
-
 
   const tableDataButonUno = [
     [<TouchableOpacity onPress={() => navigation.navigate("NewGasto", { usuario })}>
@@ -120,7 +106,7 @@ export default function MainScreen({ navigation, route }) {
           >
             <View style={style.modalBackground}>
               <View style={style.modalContainer}>
-                {subMenu}
+                <SubMenu onClose={() => setModalVisible(false)} />
               </View>
               <TouchableOpacity style={{ flex: 1 }} onPress={() => setModalVisible(false)} />
             </View>
@@ -233,25 +219,12 @@ const style = StyleSheet.create({
     right: '4%'
   },
 
-
-
-
-
-
+  
   openButton: {
     backgroundColor: '#f194ff',
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-  },
-  subMenuContainer: {
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 20,
-    backgroundColor: '#E2EEE8',
-  },
-  closeButton: {
-    color: 'red',
   },
   modalBackground: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -271,6 +244,4 @@ const style = StyleSheet.create({
 
     backgroundColor: '#E2EEE8',
   },
-
-
 })

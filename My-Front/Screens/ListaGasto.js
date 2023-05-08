@@ -5,6 +5,7 @@ import BackDropDeta from '../Screens/BackDropDeta.js';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import axios from 'axios';
+import SubMenu from './SubMenu.js';
 
 export default function ListaGasto({ navigation, route }) {
 
@@ -13,13 +14,17 @@ export default function ListaGasto({ navigation, route }) {
     //Quitar LOG
     console.log(usuario)
 
+
+
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(12);
     const [totalPages, setTotalPages] = useState(0);
     const [selectedItem, setSelectedItem] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
 
+
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisibleMenu, setmodalVisibleMenu] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -100,8 +105,22 @@ export default function ListaGasto({ navigation, route }) {
         <View style={styles.container}>
             <BackDropDeta />
             <SafeAreaView>
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalVisibleMenu}
+                    onRequestClose={() => setmodalVisibleMenu(false)}
+                >
+                    <View style={styles.modalBackground}>
+                        <View style={styles.modalContainer}>
+                            <SubMenu onClose={() => setmodalVisibleMenu(false)} />
+                        </View>
+                        <TouchableOpacity style={{ flex: 1 }} onPress={() => setmodalVisibleMenu(false)} />
+                    </View>
+                </Modal>
+
                 <View style={styles.headerWrapper}>
-                    <Feather name="menu" size={30} style={styles.menu} />
+                    <Feather name="menu" size={30} style={styles.menu} onPress={() => setmodalVisibleMenu(true)} />
                     <Text style={styles.textDis}>INFORMACIÓN</Text>
                 </View>
                 <View style={styles.headerWrapperThow}>
@@ -124,7 +143,7 @@ export default function ListaGasto({ navigation, route }) {
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/gasto.png')} />
                             </TouchableOpacity>,
                             item.valor,
-                            <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", {usuario})}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", { usuario })}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />
                             </TouchableOpacity>,
                             <TouchableOpacity onPress={() => deleteData(item.id_contabilidad)}>
@@ -214,5 +233,34 @@ const styles = StyleSheet.create({
     },
     boton: {
         alignItems: 'center'
-    }
+    },
+
+
+    /*------- */
+    openButton: {
+        backgroundColor: '#f194ff',
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+    },
+    modalBackground: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        marginLeft: 0,
+    },
+    modalContainer: {
+        backgroundColor: '#FFFFFF',
+        width: '50%',
+        height: '50%',
+        padding: 20,
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20,
+        marginTop: '20%',
+
+        backgroundColor: '#E2EEE8',
+    },
+
+
 });
