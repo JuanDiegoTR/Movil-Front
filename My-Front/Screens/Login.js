@@ -8,8 +8,6 @@ export default function LoginScreen({ navigation }) {
   const [contrasena, setContrasena] = useState('');
 
   const handleLogin = () => {
-    // Add your login logic here
-
     const login = {
       usuario,
       contrasena

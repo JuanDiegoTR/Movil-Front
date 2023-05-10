@@ -5,12 +5,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import BackDropDeta from '../Screens/BackDropDeta.js';
 import axios from "axios";
 import { Table, Row, Rows } from 'react-native-table-component';
-import SubMenu from './SubMenu.js';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
-/**Manejar ingreso y saldo como botton*/
 export default function MainScreen({ navigation, route }) {
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,14 +17,33 @@ export default function MainScreen({ navigation, route }) {
   const [disponible, setDisponible] = useState('');
   const [gasto, setGasto] = useState('');
 
-  const [transporte, setTransporte] = useState('123.123');
-  const [comida, setComida] = useState('500.000');
-  const [gym, setGym] = useState('160.000');
-  const [salud, setSalud] = useState('890.000');
-  const [compras, setCompras] = useState('75.000');
+  const [transporte, setTransporte] = useState(123123);
+  const [comida, setComida] = useState(500000);
+  const [gym, setGym] = useState(160000);
+  const [salud, setSalud] = useState(890000);
+  const [compras, setCompras] = useState(75000);
 
   //Quitar LOG
   console.log(usuario)
+
+  const subMenu = (
+    <View style={style.subMenuContainer}>
+      <TouchableOpacity onPress={() => setModalVisible(false)}> 
+      
+        <Text style={style.closeButton}>Cerrar Menú</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisible(false))}>
+        <Text style={{fontSize: 25, margin: 16, color: 'white'}} >Pantalla Principal</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Reportes", { usuario }, setModalVisible(false))}>
+        <Text style={{fontSize: 25, margin: 16, color: 'white'}} >Exporta Excel</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Consejos", { usuario }, setModalVisible(false))}>
+        <Text style={{fontSize: 25, margin: 16, color: 'white'}} >Consejos</Text>
+      </TouchableOpacity>
+      
+    </View>
+  );
 
   const tableDataButonUno = [
     [<TouchableOpacity onPress={() => navigation.navigate("NewGasto", { usuario })}>
@@ -40,25 +57,25 @@ export default function MainScreen({ navigation, route }) {
   const tableDataCateGasto = [
     [<Image style={style.imgStyle} source={require('../scr/imgs/transporte.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Transporte</Text>,
-    <Text style={style.rowText}>{transporte}</Text>],
+    <Text style={style.rowText}>{transporte.toLocaleString()}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/comida.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Comida</Text>,
-    <Text style={style.rowText}>{comida}</Text>],
+    <Text style={style.rowText}>{comida.toLocaleString()}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/gym.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>GYM</Text>,
-    <Text style={style.rowText}>{gym}</Text>],
+    <Text style={style.rowText}>{gym.toLocaleString()}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/salud.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Salud</Text>,
-    <Text style={style.rowText}>{salud}</Text>],
+    <Text style={style.rowText}>{salud.toLocaleString()}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/compras.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Compras</Text>,
-    <Text style={style.rowText}>{compras}</Text>],
+    <Text style={style.rowText}>{compras.toLocaleString()}</Text>],
   ];
 
   useEffect(() => {
 
     const dispo = () => {
-      // Cambio de IPv4
+       
       axios
         .get('https://backmovil-production.up.railway.app/operaciones/basicas/disponible/' + usuario + '')
         .then(res => {
@@ -73,7 +90,6 @@ export default function MainScreen({ navigation, route }) {
     };
 
     const gasto = () => {
-      // Cambio de IPv4
       axios
         .get('https://backmovil-production.up.railway.app/operaciones/basicas/gasto/total/' + usuario + '')
         .then(res => {
@@ -84,9 +100,7 @@ export default function MainScreen({ navigation, route }) {
           alert("Error " + err.response.data.message);
           throw err;
         });
-
     };
-
     gasto();
     dispo();
   }, []);
@@ -106,16 +120,14 @@ export default function MainScreen({ navigation, route }) {
           >
             <View style={style.modalBackground}>
               <View style={style.modalContainer}>
-                <SubMenu onClose={() => setModalVisible(false)} />
+                {subMenu}
               </View>
               <TouchableOpacity style={{ flex: 1 }} onPress={() => setModalVisible(false)} />
             </View>
           </Modal>
 
-
-
           <Text style={style.textDis}>DISPONIBLE</Text>
-          <Text style={style.textNum}>$ {disponible}</Text>
+          <Text style={style.textNum}>$ {disponible.toLocaleString()}</Text>
         </View>
         <View style={style.headerWrapperThow}>
           <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
@@ -126,7 +138,7 @@ export default function MainScreen({ navigation, route }) {
       </SafeAreaView>
       <View style={style.containerForm}>
         <SafeAreaView>
-          <Text style={style.textGasto}>$ {gasto}</Text>
+          <Text style={style.textGasto}>$ {gasto.toLocaleString()}</Text>
           <Table>
             <Rows data={tableDataButonUno} />
           </Table>
@@ -142,6 +154,7 @@ export default function MainScreen({ navigation, route }) {
     </View>
   );
 };
+
 const style = StyleSheet.create({
   container: {
     flex: 1
@@ -218,13 +231,23 @@ const style = StyleSheet.create({
   tabla: {
     right: '4%'
   },
-
-  
   openButton: {
     backgroundColor: '#f194ff',
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+  },
+  subMenuContainer: {
+    borderRadius: 20,
+    padding: 20,
+    backgroundColor: '#0CBD9D',
+    
+  },
+  closeButton: {
+    color: 'red',
+    fontSize: 25, 
+    marginTop: 20,
+    marginBottom: 20
   },
   modalBackground: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -234,14 +257,11 @@ const style = StyleSheet.create({
     marginLeft: 0,
   },
   modalContainer: {
-    backgroundColor: '#FFFFFF',
-    width: '50%',
-    height: '50%',
-    padding: 20,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
-    marginTop: '20%',
-
-    backgroundColor: '#E2EEE8',
+    width: '65%',
+    height: '100%',
+    paddingTop: '18%',
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+    backgroundColor: '#0CBD9D',
   },
 })
