@@ -112,21 +112,36 @@ export default function Reports({ navigation, route }) {
             value={fechaF} />]
     ];
 
+    const handleFechaInicioChange = (value) => {
+        setFechaInicio(value);
+    };
+
+    const handleFechaFinChange = (value) => {
+        setFechaFin(value);
+    };
+
     return (
         <View style={style.container}>
             <BackDropFinal />
             <Text style={style.titlePrimary}>REPORTES</Text>
-            <Image style={style.imgStyle} source={require('../scr/imgs/LOGO.png')} />
+            <Image style={style.imgStyle} source={require('../scr/imgs/LogoPequeño.png')} />
             <SafeAreaView>
                 <View>
                     <Text style={style.fechaInico}>Fecha Inicio</Text>
+                    <TextInput style={style.input}
+                        placeholder="YYYY-MM-DD"
+                        onChangeText={handleFechaInicioChange}
+                        value={fechaI} />
                 </View>
                 <View>
                     <Text style={style.fechaFin}>Fecha Fin</Text>
+                    <TextInput
+                        style={style.input}
+                        placeholder="YYYY-MM-DD"
+                        onChangeText={handleFechaFinChange}
+                        value={fechaF}
+                    />
                 </View>
-                <Table style={style.table}>
-                    <Rows data={tableData} />
-                </Table>
                 <View>
                     <Text style={style.select}>Seleccione el tipo</Text>
                     <View style={style.selec}>
@@ -138,6 +153,11 @@ export default function Reports({ navigation, route }) {
                             textStyle={style.selecText}
                         />
                     </View>
+                </View>
+                <View style={style.exportButtonContainer}>
+                    <TouchableOpacity style={style.exportButton}>
+                        <Text style={style.exportButtonText}>Exportar</Text>
+                    </TouchableOpacity>
                 </View>
             </SafeAreaView>
         </View>
@@ -157,22 +177,24 @@ const style = StyleSheet.create({
         textAlign: 'center',
     },
     imgStyle: {
-        width: "70%",
-        height: "33%",
-        marginTop: 30,
+        width: "72%",
+        height: "22%",
+        marginTop: 40,
         borderRadius: 100,
         margin: "15%"
     },
     fechaInico: {
         fontWeight: 'bold',
-        marginLeft: '10%',
-        color: '#969494'
+        color: '#969494',
+        marginLeft: '37%',
     },
     fechaFin: {
         fontWeight: 'bold',
-        marginLeft: '70%',
+        marginLeft: '1%',
         color: '#969494',
-        marginTop: '-4%'
+        marginTop: '5%',
+        alignItems: 'center',
+        marginLeft: '40%',
     },
     select: {
         marginTop: '20%',
@@ -197,16 +219,18 @@ const style = StyleSheet.create({
         margin: '10%'
     },
     input: {
-        height: '10%',
+        height: '1%',
+        width: '4%',
         marginVertical: 1,
         padding: 8,
-        borderWidth: 2,
         borderColor: '#ccc',
         borderRadius: 5,
         fontSize: 18,
         borderColor: 'rgb(226, 223, 223)',
         borderBottomColor: 'rgb(194, 191, 191)',
-        backgroundColor: 'rgb(226, 223, 223)'
+        backgroundColor: 'rgb(226, 223, 223)',
+        alignItems: 'center',
+
     },
     table: {
         top: '10%',
@@ -237,6 +261,20 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
     },
-
-
+    exportButton: {
+        backgroundColor: '#4CAF50',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 5,
+        marginBottom: 20,
+    },
+    exportButtonText: {
+        color: 'white',
+        fontSize: 20,
+    },
+    exportButtonContainer: {
+        marginTop: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
