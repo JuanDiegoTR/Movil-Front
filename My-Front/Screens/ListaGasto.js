@@ -161,7 +161,7 @@ export default function ListaGasto({ navigation, route }) {
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/gasto.png')} />
                             </TouchableOpacity>,
                             item.valor,
-                            <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", { usuario })}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", { usuario, item })}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />
                             </TouchableOpacity>,
                             <TouchableOpacity onPress={() => deleteData(item.id_contabilidad)}>

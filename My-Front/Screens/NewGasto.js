@@ -14,28 +14,28 @@ export default function NewGasto({ navigation, route }) {
 
     const [idCategoria, setIdCategoria] = useState('');//YA
     const [idDescripcion, setIdDescripcion] = useState('');//YA
-    const [idTipo, setIdTipo] = useState(1);//YA
+    const [idTipo, setIdTipo] = useState(2);//YA
     const [idUsuario, setIdUsuario] = useState('');//YA
     const [valor, setValor] = useState('');//YA
 
     const tableData = [
         
-        [<TouchableOpacity>
+        [<TouchableOpacity onPress={() => setIdCategoria(2)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/transporte.png')} resizeMethod="contain" />
         </TouchableOpacity>,
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIdCategoria(4)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/comida.png')} resizeMethod="contain" />
         </TouchableOpacity>,
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIdCategoria(5)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/salud.png')} resizeMethod="contain" />
         </TouchableOpacity>],
-        [<TouchableOpacity>
+        [<TouchableOpacity onPress={() => setIdCategoria(7)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/gym.png')} resizeMethod="contain" />
         </TouchableOpacity>,
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIdCategoria(8)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/servicios.png')} resizeMethod="contain" />
         </TouchableOpacity>,
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIdCategoria(6)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/compras.png')} resizeMethod="contain" />
     </TouchableOpacity>]
     ];
@@ -45,7 +45,7 @@ export default function NewGasto({ navigation, route }) {
         const handleSubmit = () => {
             // Cambio de IPv4
             axios
-                .get('http://192.168.0.13:8080/descripcion/lista/ingreso')
+                .get('https://backmovil-production.up.railway.app/descripcion/lista/ingreso')
                 .then(res => {
                     setListIngre(res.data)
                 })
@@ -60,7 +60,7 @@ export default function NewGasto({ navigation, route }) {
         const userId = () => {
             // Cambio de IPv4
             axios
-                .get('http://192.168.0.13:8080/usuario/' + usuario + '')
+                .get('https://backmovil-production.up.railway.app/usuario/' + usuario + '')
                 .then(res => {
                     setIdUsuario(res.data.id_usuario)
                 })
@@ -93,13 +93,13 @@ export default function NewGasto({ navigation, route }) {
 
             // Cambio de IPv4
             axios
-                .post('http://192.168.0.13:8080/contabilidad', datap, {
+                .post('https://backmovil-production.up.railway.app/contabilidad', datap, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
                 .then(res => {
-                    alert("Ingreso guardado");
+                    alert("Gasto guardado");
                     navigation.navigate("Principal", { usuario });
                 })
                 .catch((err) => {
@@ -114,8 +114,6 @@ export default function NewGasto({ navigation, route }) {
 
 
     };
-
-
 
     const handleValueChange = (value) => {
         setIdDescripcion(value);

@@ -7,35 +7,36 @@ import RNPickerSelect from 'react-native-picker-select';
 export default function ActuaGasto({ navigation, route }) {
 
     const { usuario } = route.params;
+    const [data, setData] = useState(route.params.item);
     //Quitar LOG
     console.log(usuario)
 
     const [listIngre, setListIngre] = useState([]);
 
-    const [idCategoria, setIdCategoria] = useState('');//YA
-    const [idDescripcion, setIdDescripcion] = useState('');//YA
-    const [idTipo, setIdTipo] = useState(1);//YA
-    const [idUsuario, setIdUsuario] = useState('');//YA
-    const [valor, setValor] = useState('');//YA
+    const [idCategoria, setIdCategoria] = useState(data.idCategoria);//YA
+    const [idDescripcion, setIdDescripcion] = useState(data.idDescripcion);//YA
+    const [idTipo, setIdTipo] = useState(data.idTipo);//YA
+    const [idUsuario, setIdUsuario] = useState(data.idUsuario);//YA
+    const [valor, setValor] = useState(data.valor);//YA
 
     const tableData = [
         
-        [<TouchableOpacity>
+        [<TouchableOpacity onPress={() => setIdCategoria(2)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/transporte.png')} resizeMethod="contain" />
         </TouchableOpacity>,
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIdCategoria(4)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/comida.png')} resizeMethod="contain" />
         </TouchableOpacity>,
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIdCategoria(5)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/salud.png')} resizeMethod="contain" />
         </TouchableOpacity>],
-        [<TouchableOpacity>
+        [<TouchableOpacity onPress={() => setIdCategoria(7)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/gym.png')} resizeMethod="contain" />
         </TouchableOpacity>,
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIdCategoria(8)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/servicios.png')} resizeMethod="contain" />
         </TouchableOpacity>,
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setIdCategoria(6)}>
             <Image style={styles.imgStyle} source={require('../scr/imgs/compras.png')} resizeMethod="contain" />
     </TouchableOpacity>]
     ];
@@ -93,13 +94,13 @@ export default function ActuaGasto({ navigation, route }) {
 
             // Cambio de IPv4
             axios
-                .post('http://192.168.0.13:8080/contabilidad', datap, {
+                .put('https://backmovil-production.up.railway.app/contabilidad/'+data.id_contabilidad+'', datap, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
                 .then(res => {
-                    alert("Ingreso guardado");
+                    alert("Gasto Actualizado");
                     navigation.navigate("Principal", { usuario });
                 })
                 .catch((err) => {
