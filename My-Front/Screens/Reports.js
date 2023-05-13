@@ -7,24 +7,109 @@ import axios from 'axios';
 import RNPickerSelect from 'react-native-picker-select';
 import { TextInput } from 'react-native-gesture-handler';
 
-
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 export default function Reports({ navigation, route }) {
 
-    //const {usuario} = route.param;
+    const { usuario } = route.params;
 
     const [listIngre, setListIngre] = useState(["INGRESO", "GASTO", "AMBOS"]);
-    const [idDescripcion, setIdDescripcion] = useState('');//YA
+
+    const [fechaI, setFechaI] = useState('2023-03-28');
+    const [fechaF, setFechaF] = useState('2023-03-28');
+    const [tipo, setTipo] = useState('');
+
+    const [base64, setBase64] = useState('');
 
     const handleValueChange = (value) => {
-        setIdDescripcion(value);
+        setTipo(value);
     };
 
+    const generarReporte = () => {
+        reporte();
+        decoding();
+    }
+
+    const reporte = () => {
+
+        const datap = {
+            fechaI,
+            fechaF,
+            tipo,
+            usuario
+        };
+
+        if (fechaI &&
+            fechaF &&
+            tipo &&
+            usuario) {
+
+            axios
+                .post('https://backmovil-production.up.railway.app/excel', datap, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => {
+                    setBase64(res.data.base64)
+                    alert("Documento Generado");
+                    navigation.navigate("Principal", { usuario });
+                })
+                .catch((err) => {
+                    console.log(err + ' ' + err.response.data.message);
+                    alert("Error " + err.response.data.message);
+                    throw err;
+                });
+
+        } else {
+            alert("Error, LLene todo el formulario");
+        }
+
+    };
+
+
+    const decoding = async () => {
+
+        try {
+
+            const fileUrl = downloadDir + '/mi_archivo.xlsx';
+
+            // Guardar el archivo en el sistema de archivos del dispositivo
+            await writeFile(fileUrl, base64, 'base64');
+
+            // Leer el archivo de Excel y convertirlo en un objeto de JavaScript
+            const workbook = XLSX.readFile(fileUrl);
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const excelData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+
+            // Eliminar el archivo de Excel temporal
+            await RNFetchBlob.fs.unlink(fileUrl);
+
+            // Devolver los datos de Excel como un objeto de JavaScript
+            return excelData;
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const tableData = [
-        [<TextInput style={style.input} value='01/05/23' />,
-        <TextInput style={style.input} value='05/05/23' />]
+        [<TextInput
+            style={style.input}
+            placeholder="Valor"
+            keyboardType="numeric"
+            autoCapitalize="none"
+            onChangeText={(text) => setFechaI(text)}
+            value={fechaI} />,
+        <TextInput
+            style={style.input}
+            placeholder="Valor"
+            keyboardType="numeric"
+            autoCapitalize="none"
+            onChangeText={(text) => setFechaF(text)}
+            value={fechaF} />]
     ];
 
     return (
@@ -48,8 +133,8 @@ export default function Reports({ navigation, route }) {
                         <RNPickerSelect
                             placeholder={{ label: 'SELECCIONE', value: null }}
                             onValueChange={handleValueChange}
-                            items={listIngre.map((list) => ({ label: list }))}
-                            value={idDescripcion}
+                            items={listIngre.map((list) => ({ label: list, value: list }))}
+                            value={tipo}
                             textStyle={style.selecText}
                         />
                     </View>
@@ -69,7 +154,7 @@ const style = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 15,
         padding: 30,
-        textAlign:'center',
+        textAlign: 'center',
     },
     imgStyle: {
         width: "70%",
@@ -153,5 +238,5 @@ const style = StyleSheet.create({
         alignSelf: 'center',
     },
 
-    
+
 });

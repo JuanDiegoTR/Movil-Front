@@ -14,6 +14,7 @@ export default function MainScreen({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const { usuario } = route.params;
+  
   const [disponible, setDisponible] = useState('');
   const [gasto, setGasto] = useState('');
 
