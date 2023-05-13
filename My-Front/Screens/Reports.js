@@ -4,6 +4,12 @@ import BackDropFinal from '../Screens/BackDropFinal.js';
 import axios from 'axios';
 import RNPickerSelect from 'react-native-picker-select';
 import { TextInput } from 'react-native-gesture-handler';
+import { Buffer } from 'buffer';
+
+// expo add expo-file-system expo-sharing xlsx
+import * as XLSX from 'xlsx';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -18,15 +24,9 @@ export default function Reports({ navigation, route }) {
     const [fechaF, setFechaF] = useState('2023-03-28');
     const [tipo, setTipo] = useState('INGRESO');
 
-    const [docEncrip, setDocEncrip] = useState('');
-
     const handleValueChange = (value) => {
         setTipo(value);
     };
-
-    const generarReporte = () => {
-        reporte();
-    }
 
     const reporte = () => {
 
@@ -43,13 +43,14 @@ export default function Reports({ navigation, route }) {
             usuario) {
 
             axios
-                .post('https://backmovil-production.up.railway.app/excel', datap, {
+                .post('https://backmovil-production.up.railway.app/excel/datos', datap, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
                 .then(res => {
-                    setDocEncrip(res.data.base64);
+                    //setDoc(res.data);
+                    generateExcel(res.data)
                     alert("Documento Generado");
                     navigation.navigate("Principal", { usuario });
                 })
@@ -65,22 +66,22 @@ export default function Reports({ navigation, route }) {
 
     };
 
-    const tableData = [
-        [<TextInput
-            style={style.input}
-            placeholder="Valor"
-            keyboardType="numeric"
-            autoCapitalize="none"
-            onChangeText={(text) => setFechaI(text)}
-            value={fechaI} />,
-        <TextInput
-            style={style.input}
-            placeholder="Valor"
-            keyboardType="numeric"
-            autoCapitalize="none"
-            onChangeText={(text) => setFechaF(text)}
-            value={fechaF} />]
-    ];
+    const generateExcel = (datos) => {
+
+        let wb = XLSX.utils.book_new();
+
+        const sheet = XLSX.utils.json_to_sheet(datos, { header: ['categoria', 'descripcion', 'fecha', 'tipo', 'valor'] });
+
+        XLSX.utils.book_append_sheet(wb, sheet, "MyFirstSheet", true);
+
+        const base64 = XLSX.write(wb, { type: "base64" });
+        const filename = FileSystem.documentDirectory + "MyExcel.xlsx";
+        FileSystem.writeAsStringAsync(filename, base64, {
+            encoding: FileSystem.EncodingType.Base64
+        }).then(() => {
+            Sharing.shareAsync(filename);
+        });
+    };
 
     const handleFechaInicioChange = (value) => {
         setFechaInicio(value);
@@ -125,7 +126,7 @@ export default function Reports({ navigation, route }) {
                     </View>
                 </View>
                 <View style={style.exportButtonContainer}>
-                    <TouchableOpacity style={style.exportButton} onPress={generarReporte}>
+                    <TouchableOpacity style={style.exportButton} onPress={reporte}>
                         <Text style={style.exportButtonText}>Exportar</Text>
                     </TouchableOpacity>
                 </View>
