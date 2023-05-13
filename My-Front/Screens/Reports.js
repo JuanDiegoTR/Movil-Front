@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, Button, SafeAreaView, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native'
-import { Table, Row, Rows } from 'react-native-table-component';
 import BackDropFinal from '../Screens/BackDropFinal.js';
-import Feather from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import RNPickerSelect from 'react-native-picker-select';
 import { TextInput } from 'react-native-gesture-handler';
@@ -18,9 +16,9 @@ export default function Reports({ navigation, route }) {
 
     const [fechaI, setFechaI] = useState('2023-03-28');
     const [fechaF, setFechaF] = useState('2023-03-28');
-    const [tipo, setTipo] = useState('');
+    const [tipo, setTipo] = useState('INGRESO');
 
-    const [base64, setBase64] = useState('');
+    const [docEncrip, setDocEncrip] = useState('');
 
     const handleValueChange = (value) => {
         setTipo(value);
@@ -28,7 +26,6 @@ export default function Reports({ navigation, route }) {
 
     const generarReporte = () => {
         reporte();
-        decoding();
     }
 
     const reporte = () => {
@@ -52,7 +49,7 @@ export default function Reports({ navigation, route }) {
                     }
                 })
                 .then(res => {
-                    setBase64(res.data.base64)
+                    setDocEncrip(res.data.base64);
                     alert("Documento Generado");
                     navigation.navigate("Principal", { usuario });
                 })
@@ -67,33 +64,6 @@ export default function Reports({ navigation, route }) {
         }
 
     };
-
-
-    const decoding = async () => {
-
-        try {
-
-            const fileUrl = downloadDir + '/mi_archivo.xlsx';
-
-            // Guardar el archivo en el sistema de archivos del dispositivo
-            await writeFile(fileUrl, base64, 'base64');
-
-            // Leer el archivo de Excel y convertirlo en un objeto de JavaScript
-            const workbook = XLSX.readFile(fileUrl);
-            const sheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[sheetName];
-            const excelData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
-
-            // Eliminar el archivo de Excel temporal
-            await RNFetchBlob.fs.unlink(fileUrl);
-
-            // Devolver los datos de Excel como un objeto de JavaScript
-            return excelData;
-
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
     const tableData = [
         [<TextInput
@@ -155,7 +125,7 @@ export default function Reports({ navigation, route }) {
                     </View>
                 </View>
                 <View style={style.exportButtonContainer}>
-                    <TouchableOpacity style={style.exportButton}>
+                    <TouchableOpacity style={style.exportButton} onPress={generarReporte}>
                         <Text style={style.exportButtonText}>Exportar</Text>
                     </TouchableOpacity>
                 </View>
