@@ -14,6 +14,7 @@ export default function MainScreen({ navigation, route }) {
   const [modalVisible, setModalVisible] = useState(false);
 
   const { usuario } = route.params;
+  
   const [disponible, setDisponible] = useState('');
   const [gasto, setGasto] = useState('');
 
@@ -28,21 +29,19 @@ export default function MainScreen({ navigation, route }) {
 
   const subMenu = (
     <View style={style.subMenuContainer}>
-      <TouchableOpacity onPress={() => setModalVisible(false)}>
-        <Text style={style.closeButton}>Cerrar submenú</Text>
+      <TouchableOpacity onPress={() => setModalVisible(false)}> 
+        <Text style={style.closeButton}>Cerrar Menú</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisible(false))}>
-        <Text>Principal</Text>
+        <Text style={{fontSize: 25, margin: 16, color: 'white'}} >Pantalla Principal</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Reportes", { usuario }, setModalVisible(false))}>
-        <Text>Exporta Excel</Text>
+        <Text style={{fontSize: 25, margin: 16, color: 'white'}} >Exporta Excel</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Consejos", { usuario }, setModalVisible(false))}>
-        <Text>Consejos</Text>
+        <Text style={{fontSize: 25, margin: 16, color: 'white'}} >Consejos</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => setModalVisible(false)}>
-        <Text style={style.closeButton}>Principal</Text>
-      </TouchableOpacity>
+      
     </View>
   );
 
@@ -244,10 +243,14 @@ const style = StyleSheet.create({
   subMenuContainer: {
     borderRadius: 20,
     padding: 20,
-    backgroundColor: '#E2EEE8',
+    backgroundColor: '#0CBD9D',
+    
   },
   closeButton: {
     color: 'red',
+    fontSize: 25, 
+    marginTop: 20,
+    marginBottom: 20
   },
   modalBackground: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -257,13 +260,12 @@ const style = StyleSheet.create({
     marginLeft: 0,
   },
   modalContainer: {
-    width: '50%',
-    height: '50%',
-    padding: 20,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
-    marginTop: '20%',
-    backgroundColor: '#E2EEE8',
+    width: '65%',
+    height: '100%',
+    paddingTop: '18%',
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
+    backgroundColor: '#0CBD9D',
   },
 
 

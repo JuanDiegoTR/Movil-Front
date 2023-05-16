@@ -1,58 +1,134 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, Button, SafeAreaView, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native'
-import { Table, Row, Rows } from 'react-native-table-component';
 import BackDropFinal from '../Screens/BackDropFinal.js';
-import Feather from 'react-native-vector-icons/Feather';
 import axios from 'axios';
 import RNPickerSelect from 'react-native-picker-select';
 import { TextInput } from 'react-native-gesture-handler';
+import { Buffer } from 'buffer';
 
+// expo add expo-file-system expo-sharing xlsx
+import * as XLSX from 'xlsx';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 export default function Reports({ navigation, route }) {
 
-    //const {usuario} = route.param;
+    const { usuario } = route.params;
 
     const [listIngre, setListIngre] = useState(["INGRESO", "GASTO", "AMBOS"]);
-    const [idDescripcion, setIdDescripcion] = useState('');//YA
+
+    const [fechaI, setFechaI] = useState('2023-03-28');
+    const [fechaF, setFechaF] = useState('2023-03-28');
+    const [tipo, setTipo] = useState('INGRESO');
 
     const handleValueChange = (value) => {
-        setIdDescripcion(value);
+        setTipo(value);
     };
 
-    const tableData = [
-        [<TextInput style={style.input} value='01/05/23' />,
-        <TextInput style={style.input} value='05/05/23' />]
-    ];
+    const reporte = () => {
+
+        const datap = {
+            fechaI,
+            fechaF,
+            tipo,
+            usuario
+        };
+
+        if (fechaI &&
+            fechaF &&
+            tipo &&
+            usuario) {
+
+            axios
+                .post('https://backmovil-production.up.railway.app/excel/datos', datap, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => {
+                    //setDoc(res.data);
+                    generateExcel(res.data)
+                    alert("Documento Generado");
+                    navigation.navigate("Principal", { usuario });
+                })
+                .catch((err) => {
+                    console.log(err + ' ' + err.response.data.message);
+                    alert("Error " + err.response.data.message);
+                    throw err;
+                });
+
+        } else {
+            alert("Error, LLene todo el formulario");
+        }
+
+    };
+
+    const generateExcel = (datos) => {
+
+        let wb = XLSX.utils.book_new();
+
+        const sheet = XLSX.utils.json_to_sheet(datos, { header: ['categoria', 'descripcion', 'fecha', 'tipo', 'valor'] });
+
+        XLSX.utils.book_append_sheet(wb, sheet, "MyFirstSheet", true);
+
+        const base64 = XLSX.write(wb, { type: "base64" });
+        const filename = FileSystem.documentDirectory + "MyExcel.xlsx";
+        FileSystem.writeAsStringAsync(filename, base64, {
+            encoding: FileSystem.EncodingType.Base64
+        }).then(() => {
+            Sharing.shareAsync(filename);
+        });
+    };
+
+    const handleFechaInicioChange = (value) => {
+        setFechaInicio(value);
+    };
+
+    const handleFechaFinChange = (value) => {
+        setFechaFin(value);
+    };
 
     return (
         <View style={style.container}>
             <BackDropFinal />
             <Text style={style.titlePrimary}>REPORTES</Text>
-            <Image style={style.imgStyle} source={require('../scr/imgs/LOGO.png')} />
+            <Image style={style.imgStyle} source={require('../scr/imgs/LogoPequeño.png')} />
             <SafeAreaView>
                 <View>
                     <Text style={style.fechaInico}>Fecha Inicio</Text>
+                    <TextInput style={style.input}
+                        placeholder="YYYY-MM-DD"
+                        onChangeText={handleFechaInicioChange}
+                        value={fechaI} />
                 </View>
                 <View>
                     <Text style={style.fechaFin}>Fecha Fin</Text>
+                    <TextInput
+                        style={style.input}
+                        placeholder="YYYY-MM-DD"
+                        onChangeText={handleFechaFinChange}
+                        value={fechaF}
+                    />
                 </View>
-                <Table style={style.table}>
-                    <Rows data={tableData} />
-                </Table>
                 <View>
                     <Text style={style.select}>Seleccione el tipo</Text>
                     <View style={style.selec}>
                         <RNPickerSelect
                             placeholder={{ label: 'SELECCIONE', value: null }}
                             onValueChange={handleValueChange}
-                            items={listIngre.map((list) => ({ label: list }))}
-                            value={idDescripcion}
+                            items={listIngre.map((list) => ({ label: list, value: list }))}
+                            value={tipo}
                             textStyle={style.selecText}
                         />
                     </View>
+                </View>
+                <View style={style.exportButtonContainer}>
+                    <TouchableOpacity style={style.exportButton} onPress={reporte}>
+                        <Text style={style.exportButtonText}>Exportar</Text>
+                    </TouchableOpacity>
                 </View>
             </SafeAreaView>
         </View>
@@ -69,25 +145,27 @@ const style = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 15,
         padding: 30,
-        textAlign:'center',
+        textAlign: 'center',
     },
     imgStyle: {
-        width: "70%",
-        height: "33%",
-        marginTop: 30,
+        width: "72%",
+        height: "22%",
+        marginTop: 40,
         borderRadius: 100,
         margin: "15%"
     },
     fechaInico: {
         fontWeight: 'bold',
-        marginLeft: '10%',
-        color: '#969494'
+        color: '#969494',
+        marginLeft: '37%',
     },
     fechaFin: {
         fontWeight: 'bold',
-        marginLeft: '70%',
+        marginLeft: '1%',
         color: '#969494',
-        marginTop: '-4%'
+        marginTop: '5%',
+        alignItems: 'center',
+        marginLeft: '40%',
     },
     select: {
         marginTop: '20%',
@@ -112,16 +190,18 @@ const style = StyleSheet.create({
         margin: '10%'
     },
     input: {
-        height: '10%',
+        height: '1%',
+        width: '4%',
         marginVertical: 1,
         padding: 8,
-        borderWidth: 2,
         borderColor: '#ccc',
         borderRadius: 5,
         fontSize: 18,
         borderColor: 'rgb(226, 223, 223)',
         borderBottomColor: 'rgb(194, 191, 191)',
-        backgroundColor: 'rgb(226, 223, 223)'
+        backgroundColor: 'rgb(226, 223, 223)',
+        alignItems: 'center',
+
     },
     table: {
         top: '10%',
@@ -152,6 +232,20 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
     },
-
-    
+    exportButton: {
+        backgroundColor: '#4CAF50',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 5,
+        marginBottom: 20,
+    },
+    exportButtonText: {
+        color: 'white',
+        fontSize: 20,
+    },
+    exportButtonContainer: {
+        marginTop: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
