@@ -133,10 +133,10 @@ export default function MainScreen({ navigation, route }) {
           <Text style={style.textNum}>$ {disponible.toLocaleString()}</Text>
         </View>
         <View style={style.headerWrapperThow}>
-          <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
+          <Button title='GASTOS' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
         </View>
         <View style={style.headerWrapperThree}>
-          <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
+          <Button title='INGRESOS' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
         </View>
       </SafeAreaView>
       <View style={style.containerForm}>

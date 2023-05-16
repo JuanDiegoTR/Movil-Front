@@ -141,10 +141,10 @@ export default function ListaIngreso({ navigation, route }) {
                     <Text style={styles.textDis}>INFORMACIÓN</Text>
                 </View>
                 <View style={styles.headerWrapperThow}>
-                    <Button title='GASTO' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
+                    <Button title='GASTOS' color='#FFFFFF' onPress={() => navigation.navigate("ListGasto", { usuario })} />
                 </View>
                 <View style={styles.headerWrapperThree}>
-                    <Button title='INGRESO' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
+                    <Button title='INGRESOS' color='#FFFFFF' onPress={() => navigation.navigate("ListIngreso", { usuario })} />
                 </View>
             </SafeAreaView>
             <View style={styles.containerTabla}>

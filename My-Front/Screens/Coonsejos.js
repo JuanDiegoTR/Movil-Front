@@ -50,43 +50,43 @@ export default function Coonsejos({ navigation, route }) {
             <ScrollView style = {styles.scroll}>
                 <View style={styles.container}>
                     <TouchableOpacity onPress={toggleAccordion} style={styles.header}>
-                        <Text style={styles.title}>HOLA BIENVENISDOA</Text>
+                        <Text style={styles.title}>Crea un presupuesto</Text>
                     </TouchableOpacity>
                     {expanded && (
                         <View style={styles.content}>
-                            <Text>Lorem ipsum dolor sit amet consectetur adipiscing elit donec nibh, arcu nec hendrerit phasellus enim quis commodo eget, himenaeos turpis neque in urna dui mauris risus.</Text>
+                            <Text>Establecer un presupuesto es fundamental para tener un control claro de tus ingresos y gastos. Analiza tus ingresos mensuales y asigna cantidades específicas a diferentes categorías, como vivienda, alimentos, transporte, entretenimiento y ahorros. Asegúrate de seguir tu presupuesto y ajustarlo según sea necesario.</Text>
                         </View>
                     )}
                     <TouchableOpacity onPress={toggleAccordion2} style={styles.header}>
-                        <Text style={styles.title}>HOLA BIENVENISDOA</Text>
+                        <Text style={styles.title}>Ahorra regularmente</Text>
                     </TouchableOpacity>
                     {expanded2 && (
                         <View style={styles.content}>
-                            <Text>Lorem ipsum dolor sit amet consectetur adipiscing elit donec nibh, arcu nec hendrerit phasellus enim quis commodo eget, himenaeos turpis neque in urna dui mauris risus.</Text>
+                            <Text>Cultiva el hábito del ahorro. Establece metas de ahorro realistas y destina una parte de tus ingresos a un fondo de emergencia y ahorros a largo plazo. Automatiza tus ahorros estableciendo transferencias automáticas a una cuenta separada, lo que te ayudará a ahorrar de manera sistemática.</Text>
                         </View>
                     )}
                     <TouchableOpacity onPress={toggleAccordion3} style={styles.header}>
-                        <Text style={styles.title}>HOLA BIENVENISDOA</Text>
+                        <Text style={styles.title}>Reduce y controla tus deudas</Text>
                     </TouchableOpacity>
                     {expanded3 && (
                         <View style={styles.content}>
-                            <Text>Lorem ipsum dolor sit amet consectetur adipiscing elit donec nibh, arcu nec hendrerit phasellus enim quis commodo eget, himenaeos turpis neque in urna dui mauris risus.</Text>
+                            <Text>Si tienes deudas, prioriza pagarlas. Identifica tus deudas de mayor interés y establece un plan de pago. Considera consolidar tus deudas en un préstamo con tasas de interés más bajas o negociar con tus acreedores para obtener mejores condiciones. Además, evita contraer nuevas deudas innecesarias y utiliza el crédito de manera responsable.</Text>
                         </View>
                     )}
                     <TouchableOpacity onPress={toggleAccordion4} style={styles.header}>
-                        <Text style={styles.title}>HOLA BIENVENISDOA</Text>
+                        <Text style={styles.title}>Planifica tus compras</Text>
                     </TouchableOpacity>
                     {expanded4 && (
                         <View style={styles.content}>
-                            <Text>Lorem ipsum dolor sit amet consectetur adipiscing elit donec nibh, arcu nec hendrerit phasellus enim quis commodo eget, himenaeos turpis neque in urna dui mauris risus.</Text>
+                            <Text>Antes de realizar una compra importante, como un electrodoméstico o un vehículo, investiga y compara precios. Considera la opción de comprar artículos usados en buen estado en lugar de nuevos. Además, evita las compras impulsivas y dale tiempo para reflexionar antes de adquirir algo costoso.</Text>
                         </View>
                     )}
                     <TouchableOpacity onPress={toggleAccordion5} style={styles.header}>
-                        <Text style={styles.title}>HOLA BIENVENISDOA</Text>
+                        <Text style={styles.title}>Aumenta tus conocimientos financieros</Text>
                     </TouchableOpacity>
                     {expanded5 && (
                         <View style={styles.content}>
-                            <Text>Lorem ipsum dolor sit amet consectetur adipiscing elit donec nibh, arcu nec hendrerit phasellus enim quis commodo eget, himenaeos turpis neque in urna dui mauris risus.</Text>
+                            <Text>Educate en temas financieros para tomar decisiones más informadas. Lee libros, asiste a talleres o cursos en línea sobre finanzas personales e inversiones. Aprende sobre conceptos clave, como diversificación de inversiones, interés compuesto y gestión del riesgo.</Text>
                         </View>
                     )}
                 </View>

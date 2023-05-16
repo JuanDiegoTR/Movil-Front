@@ -25,7 +25,7 @@ function HomeScreen({ navigation }) {
       <BackDrop />
       <Image style={styles.imgStyle} source={require('./scr/imgs/LOGO.png')} />
       <Text style={styles.titulo}>¡Le damos la bienvenida a DINNY!</Text>
-      <Text style={styles.subtitulo}>DINNY te ayuda a llevar un control y estar informado de como administrar tu dinero</Text>
+      <Text style={styles.subtitulo}>Aplicativo móvil diseñado para ayudarte a llevar un control efectivo de tus finanzas personales y mantenerte informado sobre cómo administras tu dinero.</Text>
       <SafeAreaView>
         <TouchableOpacity style={{backgroundColor: '#FDE400', borderRadius : 40,padding : 20}} onPress={() => navigation.navigate("Details")}> 
           <Text style = {{fontWeight : 'bold'}}>COMENZAR</Text>
