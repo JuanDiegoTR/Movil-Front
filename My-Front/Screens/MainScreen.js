@@ -18,11 +18,11 @@ export default function MainScreen({ navigation, route }) {
   const [disponible, setDisponible] = useState('');
   const [gasto, setGasto] = useState('');
 
-  const [transporte, setTransporte] = useState(123123);
-  const [comida, setComida] = useState(500000);
-  const [gym, setGym] = useState(160000);
-  const [salud, setSalud] = useState(890000);
-  const [compras, setCompras] = useState(75000);
+  const [transporte, setTransporte] = useState();
+  const [comida, setComida] = useState();
+  const [gym, setGym] = useState();
+  const [salud, setSalud] = useState();
+  const [compras, setCompras] = useState();
 
   //Quitar LOG
   console.log(usuario)
@@ -57,19 +57,19 @@ export default function MainScreen({ navigation, route }) {
   const tableDataCateGasto = [
     [<Image style={style.imgStyle} source={require('../scr/imgs/transporte.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Transporte</Text>,
-    <Text style={style.rowText}>{transporte.toLocaleString()}</Text>],
+    <Text style={style.rowText}>{transporte}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/comida.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Comida</Text>,
-    <Text style={style.rowText}>{comida.toLocaleString()}</Text>],
+    <Text style={style.rowText}>{comida}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/gym.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>GYM</Text>,
-    <Text style={style.rowText}>{gym.toLocaleString()}</Text>],
+    <Text style={style.rowText}>{gym}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/salud.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Salud</Text>,
-    <Text style={style.rowText}>{salud.toLocaleString()}</Text>],
+    <Text style={style.rowText}>{salud}</Text>],
     [<Image style={style.imgStyle} source={require('../scr/imgs/compras.png')} resizeMethod="contain" />,
     <Text style={style.rowText}>Compras</Text>,
-    <Text style={style.rowText}>{compras.toLocaleString()}</Text>],
+    <Text style={style.rowText}>{compras}</Text>],
   ];
 
   useEffect(() => {
@@ -104,8 +104,90 @@ export default function MainScreen({ navigation, route }) {
 
     };
 
+    /* Cargue de los gastos por categoria */
+    const gastoTransporte = () => {
+       
+      axios
+        .get('https://backmovil-production.up.railway.app/contabilidad/total-gastos/2')
+        .then(res => {
+          setTransporte(res.data);
+        })
+        .catch((err) => {
+          console.log(err + ' ' + err.response.data.message);
+          alert("Error " + err.response.data.message);
+          throw err;
+        });
+
+    };
+
+    const gastoComida = () => {
+       
+      axios
+        .get('https://backmovil-production.up.railway.app/contabilidad/total-gastos/4')
+        .then(res => {
+          setComida(res.data);
+        })
+        .catch((err) => {
+          console.log(err + ' ' + err.response.data.message);
+          alert("Error " + err.response.data.message);
+          throw err;
+        });
+
+    };
+
+    const gastoGym = () => {
+       
+      axios
+        .get('https://backmovil-production.up.railway.app/contabilidad/total-gastos/7')
+        .then(res => {
+          setGym(res.data);
+        })
+        .catch((err) => {
+          console.log(err + ' ' + err.response.data.message);
+          alert("Error " + err.response.data.message);
+          throw err;
+        });
+
+    };
+
+    const gastoSalud = () => {
+       
+      axios
+        .get('https://backmovil-production.up.railway.app/contabilidad/total-gastos/5')
+        .then(res => {
+          setSalud(res.data);
+        })
+        .catch((err) => {
+          console.log(err + ' ' + err.response.data.message);
+          alert("Error " + err.response.data.message);
+          throw err;
+        });
+
+    };
+
+    const gastoCompras = () => {
+       
+      axios
+        .get('https://backmovil-production.up.railway.app/contabilidad/total-gastos/6')
+        .then(res => {
+          setCompras(res.data);
+        })
+        .catch((err) => {
+          console.log(err + ' ' + err.response.data.message);
+          alert("Error " + err.response.data.message);
+          throw err;
+        });
+
+    };
+
+
     gasto();
     dispo();
+    gastoComida();
+    gastoGym();
+    gastoCompras();
+    gastoSalud();
+    gastoTransporte();
   }, []);
 
   return (

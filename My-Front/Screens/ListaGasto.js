@@ -25,20 +25,18 @@ export default function ListaGasto({ navigation, route }) {
     const subMenu = (
         <View style={styles.subMenuContainer}>
             <TouchableOpacity onPress={() => setModalVisibleMenu(false)}>
-                <Text style={styles.closeButton}>Cerrar submenú</Text>
+                <Text style={styles.closeButton}>Cerrar Menú</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisibleMenu(false))}>
-                <Text>Principal</Text>
+                <Text style={{ fontSize: 25, margin: 16, color: 'white' }} >Pantalla Principal</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("ListGasto", { usuario }, setModalVisibleMenu(false))}>
-                <Text>Exporta Excel</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Reportes", { usuario }, setModalVisibleMenu(false))}>
+                <Text style={{ fontSize: 25, margin: 16, color: 'white' }} >Exporta Excel</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Consejos", { usuario }, setModalVisibleMenu(false))}>
-                <Text>Consejos</Text>
+                <Text style={{ fontSize: 25, margin: 16, color: 'white' }} >Consejos</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate("Principal", { usuario }, setModalVisibleMenu(false))}>
-                <Text style={styles.closeButton}>Principal</Text>
-            </TouchableOpacity>
+
         </View>
     );
 
@@ -158,7 +156,7 @@ export default function ListaGasto({ navigation, route }) {
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/gasto.png')} />
                             </TouchableOpacity>,
                             item.valor.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."),
-                            <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", { usuario, item})}>
+                            <TouchableOpacity onPress={() => navigation.navigate("ActuaGasto", { usuario, item })}>
                                 <Image style={styles.imgStyle} source={require('../scr/imgs/editar.png')} />
                             </TouchableOpacity>,
                             <TouchableOpacity onPress={() => deleteData(item.id_contabilidad)}>
@@ -250,13 +248,16 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     subMenuContainer: {
-        backgroundColor: 'white',
         borderRadius: 20,
         padding: 20,
-        backgroundColor: '#E2EEE8',
+        backgroundColor: '#0CBD9D',
+
     },
     closeButton: {
         color: 'red',
+        fontSize: 25,
+        marginTop: 20,
+        marginBottom: 20
     },
     modalBackground: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -266,15 +267,12 @@ const styles = StyleSheet.create({
         marginLeft: 0,
     },
     modalContainer: {
-        backgroundColor: '#FFFFFF',
-        width: '50%',
-        height: '50%',
-        padding: 20,
-        borderTopRightRadius: 20,
-        borderBottomRightRadius: 20,
-        marginTop: '20%',
-        backgroundColor: '#E2EEE8',
+        width: '65%',
+        height: '100%',
+        paddingTop: '18%',
+        borderTopRightRadius: 30,
+        borderBottomRightRadius: 30,
+        backgroundColor: '#0CBD9D',
     },
-
 
 });
